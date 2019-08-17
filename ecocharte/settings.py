@@ -73,6 +73,7 @@ INSTALLED_APPS = (
     'leaflet',
     'captcha',
     'django_summernote',
+    'herokuapp'
 )
 
 
