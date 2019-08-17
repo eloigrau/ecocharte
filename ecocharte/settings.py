@@ -78,6 +78,7 @@ INSTALLED_APPS = (
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -106,7 +107,6 @@ TEMPLATES = [
                 'django.template.context_processors.tz',
             ],
             'string_if_invalid': 'Invalid: "%s"',
-           # 'libraries': {'is_numeric': 'ecocharte.templatetags.app_filters', }
         },
     },
 ]
@@ -216,13 +216,13 @@ BASE_URL = "https://ecocharte.herokuapp.com"
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 STATIC_ADD_ROOT = os.path.join(BASE_DIR, 'static/ajoutes/')
-#STATICFILES_DIRS = (os.path.join(BASE_DIR, 'staticfiles'), )
+STATICFILES_DIRS = (os.path.join(BASE_DIR, 'staticfiles'), )
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, '/media/')
 
 
-#STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # LOCATION_FIELD = {
 #     'map.provider': 'openstreetmap',
@@ -350,23 +350,5 @@ SUMMERNOTE_CONFIG = {
 #'js': {
 #},
 }
-
-# WEBPUSH_SETTINGS = {
-#     "VAPID_PUBLIC_KEY": "BLyCoFZY_vO7P7xHVJg27iqbDaLhfRQfg_sKbE1kx4NBZ1zLEgXy8VWUYn3yFbUQoPte99fUnH8KV-2wt-cZlk0",
-#     "VAPID_PRIVATE_KEY":"P26Rpbr7yJT6fNBbgo8H_7t0ueiQFsoyl9RsJvqIYyE",
-#     "VAPID_ADMIN_EMAIL": "ecocharte.cat@gmail.com"
-# }
-
-ACTSTREAM_SETTINGS = {
-    #'MANAGER': 'myapp.managers.MyActionManager',
-    'FETCH_RELATIONS': True,
-    'USE_PREFETCH': True,
-    'USE_JSONFIELD': True,
-    'GFK_FETCH_DEPTH': 1,
-}
-#FONTAWESOME_CSS_URL = STATIC_URL + 'css/fontawesome.min.css'
-
-WIKI_ACCOUNT_HANDLING = False
-WIKI_ACCOUNT_SIGNUP_ALLOWED = False
-#WIKI_STORAGE_BACKEND = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-#WIKI_ATTACHMENTS_STORAGE_BACKEND = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+import django_heroku
+django_heroku.settings(locals())
