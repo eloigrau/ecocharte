@@ -48,8 +48,6 @@ urlpatterns = [
     url(r'^register/$', views.register, name='senregistrer', ),
     url(r'^password/change/$', views.change_password, name='change_password'),
     path('auth/', include('django.contrib.auth.urls')),
-
-    url(r'^contact_admins/$', views.contact_admins, name='contact_admins', ),
     url(r'^charte/$', views.charte, name='charte', ),
     url(r'^cgu/$', views.cgu, name='cgu', ),
     url(r'^liens/$', views.liens, name='liens', ),
