@@ -166,6 +166,30 @@ def contact(request):
         form = ContactForm()
     return render(request, 'contact.html', {'form': form, "isContactProfil":False})
 
+
+def contact_admins(request):
+    if request.method == 'POST':
+        form = ContactForm(request.POST or None, )
+        if form.is_valid():
+            sujet = form.cleaned_data['sujet']
+            message_txt = request.user.username + " a envoyé le message suivant : "
+            message_html = form.cleaned_data['msg']
+            try:
+                mail_admins(sujet, message_txt, html_message=message_html)
+                if form.cleaned_data['renvoi']:
+                    send_mail(sujet, message_txt, request.user.email, request.user.email, fail_silently=False, html_message=message_html)
+
+                return render(request, 'message_envoye.html', {'sujet': sujet, 'msg': message_html,
+                                                       'envoyeur': request.user.username + " (" + request.user.email + ")",
+                                                       "destinataire": "administrateurs "})
+            except BadHeaderError:
+                return render(request, 'erreur.html', {'msg':'Invalid header found.'})
+
+            return render(request, 'erreur.html', {'msg':"Désolé, une ereur s'est produite"})
+    else:
+        form = ContactForm()
+    return render(request, 'contact.html', {'form': form, "isContactProducteur":False})
+
 def cgu(request):
     return render(request, 'cgu.html', )
 

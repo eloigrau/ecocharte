@@ -58,6 +58,7 @@ urlpatterns = [
     url(r'^cgu/$', views.cgu, name='cgu', ),
     url(r'^liens/$', views.liens, name='liens', ),
     url(r'^fairedon/$', views.fairedon, name='fairedon', ),
+    url(r'^contact_admins/$', views.contact_admins, name='contact_admins',),
 ]
 urlpatterns += [
     url(r'^robots\.txt$', TemplateView.as_view(template_name="ecocharte/robots.txt", content_type='text/plain')),
