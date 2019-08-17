@@ -40,7 +40,7 @@ class ProfilCreationForm(UserCreationForm):
 
 
 
-class ProducteurChangeForm(UserChangeForm):
+class ProfilChangeForm(UserChangeForm):
     """A form for updating users. Includes all the fields on
     the user, but replaces the password field with admin's
     password hash display field.
@@ -57,7 +57,7 @@ class ProducteurChangeForm(UserChangeForm):
         fields = ['username', 'first_name', 'last_name', 'email',  'description', 'accepter_annuaire', 'inscrit_newsletter']
 
 
-class ProducteurChangeForm_admin(UserChangeForm):
+class ProfilChangeForm_admin(UserChangeForm):
     """A form for updating users. Includes all the fields on
     the user, but replaces the password field with admin's
     password hash display field.
@@ -67,6 +67,7 @@ class ProducteurChangeForm_admin(UserChangeForm):
     description = forms.CharField(label="Description", initial="Une description de vous même (facultatif)", widget=forms.Textarea)
     inscrit_newsletter = forms.BooleanField(required=False)
     accepter_annuaire = forms.BooleanField(required=False)
+    a_signe = forms.BooleanField(required=False)
     password = None
 
     class Meta:
@@ -74,7 +75,7 @@ class ProducteurChangeForm_admin(UserChangeForm):
         fields = ['username', 'email', 'description', 'inscrit_newsletter', 'accepter_annuaire', ]
 
     def __init__(self, *args, **kwargs):
-        super(ProducteurChangeForm_admin, self).__init__(*args, **kwargs)
+        super(ProfilChangeForm_admin, self).__init__(*args, **kwargs)
         self.fields['description'].strip = False
         self.fields['competences'].strip = False
 
@@ -109,3 +110,11 @@ class ContactForm(forms.Form):
                                      help_text="Cochez si vous souhaitez obtenir une copie du mail envoyé.", required=False
                                  )
 
+
+class SignerForm(forms.Form):
+    renvoi = forms.BooleanField(label="J'ai lu la charte",
+                                     help_text="Cochez si vous avez bien lu la charte.", required=False
+                                 )
+    accepter = forms.BooleanField(label="J'accepte les termes de la charte",
+                                     help_text="Cochez si vous avez bien lu la charte.", required=True
+                                 )

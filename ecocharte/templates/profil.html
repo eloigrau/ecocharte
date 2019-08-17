@@ -16,15 +16,6 @@
   </div>
   </div>
 
-<div class="row">
-    <div class="col-md-12 textcenter">
-      {%if request.user == user %}
-            <a href="{% url 'afficher_requetes' %}" class="btn btn-success">
-              <span class="glyphicon glyphicon-shopping-cart"></span> Mes messages
-            </a>
-        {%endif%}
-    </div>
-  </div>
 {% endblock %}
 
 {% block content %}
@@ -66,6 +57,12 @@
                         <td style="width:250px">Description :</td>
                         <td>{{ user.description|safe }}</td>
                     </tr>
+            </tr>
+
+                    <tr>
+                        <td style="width:250px">A signé la charte :</td>
+                        <td>{{ user.a_signe|safe }}</td>
+                    </tr>
         {% endif %}
       </tbody>
     </table>
@@ -104,8 +101,6 @@
   </div>
 
   <div class="col-md-6">
-
-  {% if request.user.is_permacat %}
               <style>
 
             .leaflet-container {  /* all maps */
@@ -134,9 +129,6 @@
             }
         </script>
         {% leaflet_map "yourmap" callback="window.map_init_basic" %}
-    {% else %}
-    <p>(affichage de la carte réservé aux adhérents Permacat)</p>
-    {% endif %}
 </div>
 </div>
 

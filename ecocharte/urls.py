@@ -40,10 +40,14 @@ urlpatterns = [
     url(r'^preconisations/$', views.preconisations, name='preconisations'),
     url(r'^faq/$', views.faq, name='faq'),
     url(r'^contact/$', views.contact, name='contact', ),
+    url(r'^signer/$', views.signer, name='signer', ),
 
     url(r'^accounts/profil/(?P<user_id>[0-9]+)/$', login_required(views.profil), name='profil', ),
     url(r'^accounts/profil/(?P<user_username>[-\w.]+)/$', login_required(views.profil_nom), name='profil_nom', ),
     url(r'^accounts/profile/$', login_required(views.profil_courant), name='profil_courant', ),
+    url(r'^accounts/profil_modifier/$', login_required(views.profil_modifier.as_view()), name='profil_modifier',),
+    url(r'^accounts/profil_supprimer/$', login_required(views.profil_supprimer.as_view()), name='profil_supprimer',),
+    url(r'^accounts/profil_modifier_adresse/$', login_required(views.profil_modifier_adresse.as_view()), name='profil_modifier_adresse',),
 
     url(r'^permacat/statuts/$', views.statuts, name='statuts'),
     url(r'^merci/$', views.merci, name='merci'),

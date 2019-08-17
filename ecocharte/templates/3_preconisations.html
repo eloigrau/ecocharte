@@ -1,12 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<div class="site-section">
-      <div class="container">
-        <div class="row mb-5">
-            <p>Comme tout est lié, les mesures nécessaires doivent être décidées en ayant une vision holistique du problème.  Mais pour aborder les solutions, je vous propose nous recentrer d'abord sur un des atouts majeurs de notre territoire : l'agriculture. En effet, l'agriculture c'est d'abord notre premier besoin : se nourrir sainement. Mais elle doit aussi être pensée en lien avec les transports, l'économie, la monnaie, l'habitat, le chauffage, la biodiversité, l'eau, l'éducation, etc. il faut comprendre l'importance cruciale de reprendre en main notre agriculture.
-            </p></div>
-      </div></div>
 
 <div class="site-section">
       <div class="container">
@@ -22,6 +16,10 @@
             <img src="images/hero_1.jpg" alt="Image" class="img-fluid">
           </div>
         </div>
+        <div class="row mb-5">
+            <p>Comme tout est lié, les mesures nécessaires doivent être décidées en ayant une vision holistique du problème.  Mais pour aborder les solutions, je vous propose nous recentrer d'abord sur un des atouts majeurs de notre territoire : l'agriculture. En effet, l'agriculture c'est d'abord notre premier besoin : se nourrir sainement. Mais elle doit aussi être pensée en lien avec les transports, l'économie, la monnaie, l'habitat, le chauffage, la biodiversité, l'eau, l'éducation, etc. il faut comprendre l'importance cruciale de reprendre en main notre agriculture.
+            </p></div>
+      </div></div>
         <div class="row">
 {% for pb in dico_risques %}
           <div class="col-md-3" data-aos="fade-up" data-aos-delay="400"><span class="text-primary">{{pb.0}}</span></div>
@@ -38,7 +36,9 @@
         <div class="row mb-5">
             <p>Ce sont des solutions qui peut paraitre un peu trop ambitieuse, mais cette réponse est tout juste proportionnelle au scénario qui n'est pas le pire... Si nous (surtout les élus) ne faisons rien, nous serons tenus responsables, à juste titre, de la catastrophe.  Et alors qui peut dire ce qu'il adviendra...
 </p></div>
-      </div></div>
+
+      </div>
+</div>
 {% endblock %}
 
 

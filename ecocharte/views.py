@@ -2,14 +2,17 @@ from django.shortcuts import render, redirect
 from django.db.models import CharField
 from django.db.models.functions import Lower
 from django.views.decorators.debug import sensitive_variables
-
+from django.urls import reverse_lazy, reverse
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import Group, User
 from django.core.mail import mail_admins, send_mail, BadHeaderError
-from .forms import ProfilCreationForm, ContactForm, AdresseForm
-from .models import Profil
+from .forms import ProfilCreationForm, ContactForm, AdresseForm, SignerForm, ProfilChangeForm
+from .models import Profil, Adresse
+from django.views.generic import ListView, UpdateView, DeleteView
+
 CharField.register_lookup(Lower, "lower")
 
 
@@ -53,6 +56,7 @@ def statuts(request):
     return render(request, 'statuts.html')
 
 
+
 @sensitive_variables('user', 'password1', 'password2')
 def register(request):
     if request.user.is_authenticated:
@@ -64,12 +68,50 @@ def register(request):
         adresse = form_adresse.save()
         profil_courant = form_profil.save(commit=False, is_active=False)
         profil_courant.adresse = adresse
-        if profil_courant.statut_adhesion == 2:
-            profil_courant.is_active = False
         profil_courant.save()
         return render(request, 'userenattente.html')
 
     return render(request, 'register.html', {"form_adresse": form_adresse, "form_profil": form_profil, })
+
+
+@login_required
+class profil_modifier_user(UpdateView):
+    model = Profil
+    form_class = ProfilChangeForm
+    template_name_suffix = '_modifier'
+    fields = ['username', 'first_name', 'last_name', 'email', 'site_web', 'description', 'competences', 'pseudo_june',
+              'accepter_annuaire', 'inscrit_newsletter']
+
+    def get_object(self):
+        return Profil.objects.get(id=self.request.user.id)
+
+
+class profil_modifier_adresse(UpdateView):
+    model = Adresse
+    form_class = AdresseForm
+    template_name_suffix = '_modifier'
+
+    def get_object(self):
+        return Adresse.objects.get(id=self.request.user.id)
+
+
+class profil_modifier(UpdateView):
+    model = Profil
+    form_class = ProfilChangeForm
+    template_name_suffix = '_modifier'
+
+    # fields = ['username','email','first_name','last_name', 'site_web','description', 'competences', 'inscrit_newsletter']
+
+    def get_object(self):
+        return Profil.objects.get(id=self.request.user.id)
+
+
+class profil_supprimer(DeleteView):
+    model = Profil
+    success_url = reverse_lazy('bienvenue')
+
+    def get_object(self):
+        return Profil.objects.get(id=self.request.user.id)
 
 
 @sensitive_variables('password')
@@ -111,7 +153,7 @@ def contact(request):
             return render(request, 'erreur.html', {'msg':"Désolé, une ereur s'est produite"})
     else:
         form = ContactForm()
-    return render(request, 'contact.html', {'form': form, "isContactProducteur":False})
+    return render(request, 'contact.html', {'form': form, "isContactProfil":False})
 
 def cgu(request):
     return render(request, 'cgu.html', )
@@ -178,10 +220,10 @@ def preconisations(request):
 def charte(request):
     dico_charte =[("promouvoir l'agriculture ",
       ("Aider à la création de fermes agro-ecologiques",
-       "Soutennir ou création de coopératives agricoles",
+       "Soutenir ou aider à la création de coopératives agricoles",
        "Interdire tous les pesticides dans la commune",
        "Replanter les haies et créer des espaces arborés",
-       "Créer ou soutennir aux jardins partagés, ou jardins familiaux",
+       "outenir ou aider à la création de jardins partagés, ou jardins familiaux",
        "Que les cantines scolaires soient fournies de plus en plus par l'agriculture locale biologique ou permacole",
        "Faire un jardin potager au sein des établissement scolaires en lien avec les maraichers locaux",
        "Favoriser l'agriculture biologique et la permaculture dans ma commune",),
@@ -258,3 +300,14 @@ def profil_nom(request, user_username):
         return render(request, 'profil.html', {'user': user, 'distance':distance})
     except User.DoesNotExist:
         return render(request, 'profil_inconnu.html', {'userid': user_username})
+
+@login_required
+def signer(request):
+    form_signer = SignerForm(request.POST or None)
+    if form_signer.is_valid():
+        profil_courant = Profil.objects.get(username=request.user.username)
+        profil_courant.a_signe = True
+        profil_courant.save()
+        return render(request, 'merci.html')
+
+    return render(request, 'signer.html', {"form_signer": form_signer, })

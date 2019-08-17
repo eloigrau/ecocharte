@@ -41,13 +41,10 @@ class Adresse(models.Model):
         return self.__str__()
 
     def set_latlon_from_adresse(self):
-        address = ''
-        if self.rue:
-            address += self.rue + ", "
-        address += self.code_postal
+        address = self.code_postal
         if self.commune:
             address += " " + self.commune
-        address += ", " + self.pays
+        address += ", France"
         try:
             api_key = os.environ["GAPI_KEY"]
             api_response = requests.get('https://maps.googleapis.com/maps/api/geocode/json?address={0}&key={1}'.format(address, api_key))
@@ -77,6 +74,7 @@ class Profil(AbstractUser):
     inscrit_newsletter = models.BooleanField(verbose_name="J'accepte de recevoir des emails", default=False)
     accepter_conditions = models.BooleanField(verbose_name="J'ai lu et j'accepte les conditions d'utilisation du site", default=False, null=False)
     accepter_annuaire = models.BooleanField(verbose_name="J'accepte d'apparaitre dans l'annuaire du site et la carte et rend mon profil visible par tous", default=True)
+    a_signe = models.BooleanField(verbose_name="J'ai signé la charte", default=False)
 
     def __str__(self):
         return self.username
@@ -107,29 +105,6 @@ class Profil(AbstractUser):
         y = (x2-x1)
         return math.sqrt(x*x + y*y) * 6371
 
-    @property
-    def statutMembre(self):
-        return self.statut_adhesion
-
-    @property
-    def statutMembre_str(self):
-        if self.statut_adhesion == 0:
-            return "souhaite devenir membre de l'association"
-        elif self.statut_adhesion == 1:
-            return "ne souhaite pas devenir membre"
-        elif self.statut_adhesion == 2:
-            return "membre actif"
-
-    @property
-    def is_permacat(self):
-        if self.statut_adhesion == 2:
-            return True
-        else:
-            return False
-
-    @property
-    def cotisation_a_jour_str(self):
-       return "oui" if self.cotisation_a_jour else "non"
 
     @property
     def inscrit_newsletter_str(self):

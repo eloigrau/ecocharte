@@ -282,7 +282,7 @@ button.ui-button::-moz-focus-inner {
 }
 .ui-widget-header {
 	border: 1px solid #4297d7;
-	background: #5c9ccc url("images/ui-bg_gloss-wave_55_5c9ccc_500x100.png") 50% 50% repeat-x;
+	background: #5c9ccc  50% 50% repeat-x;
 	color: #ffffff;
 	font-weight: bold;
 }
@@ -296,7 +296,7 @@ button.ui-button::-moz-focus-inner {
 .ui-widget-content .ui-state-default,
 .ui-widget-header .ui-state-default {
 	border: 1px solid #c5dbec;
-	background: #dfeffc url("images/ui-bg_glass_85_dfeffc_1x400.png") 50% 50% repeat-x;
+	background: #dfeffc 50% 50% repeat-x;
 	font-weight: bold;
 	color: #2e6e9e;
 }
