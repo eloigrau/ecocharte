@@ -8,6 +8,8 @@ from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.decorators import login_required
 from django.core.mail import mail_admins, send_mail, BadHeaderError
+from .forms import ProfilCreationForm, ContactForm, AdresseForm
+from .models import Profil
 CharField.register_lookup(Lower, "lower")
 
 
@@ -56,13 +58,18 @@ def register(request):
     if request.user.is_authenticated:
         return render(request, "erreur.html", {"msg": "Vous etes déjà inscrit et authentifié !"})
 
+    form_adresse = AdresseForm(request.POST or None)
     form_profil = ProfilCreationForm(request.POST or None)
-    if form_profil.is_valid():
+    if form_adresse.is_valid() and form_profil.is_valid():
+        adresse = form_adresse.save()
         profil_courant = form_profil.save(commit=False, is_active=False)
+        profil_courant.adresse = adresse
+        if profil_courant.statut_adhesion == 2:
+            profil_courant.is_active = False
         profil_courant.save()
         return render(request, 'userenattente.html')
 
-    return render(request, 'register.html', {"form_profil": form_profil, })
+    return render(request, 'register.html', {"form_adresse": form_adresse, "form_profil": form_profil, })
 
 
 @sensitive_variables('password')
@@ -228,3 +235,26 @@ def charte(request):
     return render(request, 'charte.html', {"dico_charte":dico_charte})
 
 
+
+@login_required
+def profil_courant(request, ):
+    return render(request, 'profil.html', {'user': request.user})
+
+
+@login_required
+def profil(request, user_id):
+    try:
+        user = Profil.objects.get(id=user_id)
+        distance = user.getDistance(request.user)
+        return render(request, 'profil.html', {'user': user, 'distance':distance})
+    except User.DoesNotExist:
+            return render(request, 'profil_inconnu.html', {'userid': user_id})
+
+@login_required
+def profil_nom(request, user_username):
+    try:
+        user = Profil.objects.get(username=user_username)
+        distance = user.getDistance(request.user)
+        return render(request, 'profil.html', {'user': user, 'distance':distance})
+    except User.DoesNotExist:
+        return render(request, 'profil_inconnu.html', {'userid': user_username})

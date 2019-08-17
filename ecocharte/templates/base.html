@@ -70,6 +70,20 @@
               </div>
             </li>
                 <li class="cta"><a href="{% url 'charte' %}">Signer la charte</a></li>
+                <li class="nav-item dropdown">
+           <a data-toggle="dropdown" class="nav-link dropdown-toggle " href="{% url 'profil_courant' %}" aria-haspopup="true" aria-expanded="false"  >
+              {% fontawesome_icon 'user' %}  </a>
+            <ul class="dropdown-menu textcenter" aria-labelledby="navbarDropdownMenuLink">
+              {% if user.is_authenticated %}
+               <li> <a class="nav-link dropdown-item" href="{% url 'profil_courant' %}">Mon profil</a></li>
+                 <li><a class="nav-link dropdown-item" href="{% url 'conversations' %}">Mes messages</a></li>
+                <li> <span class="nav-link divider" role="separator"></span></li>
+               <li> <a class="nav-link dropdown-item" href="{% url 'logout' %}">Déconnexion</a></li>
+              {%else%}
+               <li> <a class="nav-link dropdown-item" href="{% url 'login' %}">Me connecter</a></li>
+              {%endif%}
+            </ul>
+        </li>
               </ul>
             </nav>
           </div>

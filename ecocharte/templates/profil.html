@@ -1,0 +1,145 @@
+
+{% extends 'base.html' %}
+{% block headerDocument%}
+{% load leaflet_tags %}
+{% load static %}
+{%endblock%}
+{%block header %}
+{% leaflet_js %}
+{% leaflet_css %}
+{%endblock%}
+{% block title %}Profil de {{ user.username }} {% endblock %}
+{% block subtitle %}
+<div class="row">
+  <div class="col-md-12 textcenter">
+    <h4> Profil de {{ user.username }}    </h4>
+  </div>
+  </div>
+
+<div class="row">
+    <div class="col-md-12 textcenter">
+      {%if request.user == user %}
+            <a href="{% url 'afficher_requetes' %}" class="btn btn-success">
+              <span class="glyphicon glyphicon-shopping-cart"></span> Mes messages
+            </a>
+        {%endif%}
+    </div>
+  </div>
+{% endblock %}
+
+{% block content %}
+
+<div class="row justify-content-center">
+  <div class="col-sm-12 col-md-10">
+      {%if request.user == user %}
+        <a href="{% url 'profil_modifier' %}">
+            <button type="button" class="btn btn-sm btn-warning">
+                <span class="glyphicon glyphicon-plus"></span>&nbsp;Modifier
+            </button>
+        </a>
+      {%endif%}
+      <table class="table table-condensed tablepanier table-striped"><tbody>
+
+        <tr>
+            <td style="width:250px">Pseudo :</td>
+            <td>{{ user.username }}</td>
+        </tr>
+        {%if user.accepter_annuaire  or request.user == user %}
+              {% if user.get_full_name %}
+                <tr>
+                    <td style="width:250px">Nom :</td>
+                    <td>{{ user.get_full_name }}</td>
+                </tr>
+              {% endif %}
+              {% if user.adresse.telephone %}
+                <tr>
+                    <td style="width:250px">Telephone *:</td>
+                    <td>{{ user.adresse.telephone }}</td>
+                </tr>
+              {% endif %}
+            <tr>
+                <td style="width:250px">Email :</td>
+                <td>{{ user.email }}</td>
+            </tr>
+
+                    <tr>
+                        <td style="width:250px">Description :</td>
+                        <td>{{ user.description|safe }}</td>
+                    </tr>
+        {% endif %}
+      </tbody>
+    </table>
+      </div>
+</div>
+<div class="row">
+
+  <div class="col-md-6">
+      {%if request.user.id == user.id %}
+        <a href="{% url 'profil_modifier_adresse' %}">
+            <button type="button" class="btn btn-sm btn-warning">
+                <span class="glyphicon glyphicon-plus"></span>&nbsp;Modifier
+            </button>
+        </a>
+      {%endif%}
+    <table class="table table-condensed tablepanier table-striped">
+    <tbody>
+      {%if user.accepter_annuaire  or request.user == user %}
+
+            {%if user.adresse.commune %}
+            <tr>
+                <td style="width:250px">Commune :</td>
+                <td>{{ user.adresse.commune }}</td>
+            </tr>
+            {% endif %}
+            {%if user.adresse.code_postal %}
+            <tr>
+                <td style="width:250px">Code postal :</td>
+                <td>{{ user.adresse.code_postal }}</td>
+            </tr>
+            {% endif %}
+        {% endif %}
+    </tbody>
+    </table>
+      <small> {% if  request.user == user %}Les champs notés par un ^ ne sont visibles que par vous. {%endif%}Les champs notés par un * ne sont visibles que par les membres "permacat"</small>
+  </div>
+
+  <div class="col-md-6">
+
+  {% if request.user.is_permacat %}
+              <style>
+
+            .leaflet-container {  /* all maps */
+                width:  100%;
+                height: 100%;
+            }
+            </style>
+              <script type="text/javascript">
+                function map_init_basic (map, options) {
+
+          var greenIcon = L.icon({
+            iconUrl: '{% static 'img/leafgreen.png' %}',
+            shadowUrl: '{% static 'img/leafshadow.png' %}',
+
+            iconSize:     [38, 95], // size of the icon
+            shadowSize:   [50, 64], // size of the shadow
+            iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+            shadowAnchor: [4, 62],  // the same for the shadow
+            popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+        });
+
+                var lat = {{user.adresse.get_latitude}};
+                var lon = {{user.adresse.get_longitude}};
+                L.marker([lat, lon], {icon: greenIcon}).addTo(map);
+                map.panTo(new L.LatLng(lat, lon));
+            }
+        </script>
+        {% leaflet_map "yourmap" callback="window.map_init_basic" %}
+    {% else %}
+    <p>(affichage de la carte réservé aux adhérents Permacat)</p>
+    {% endif %}
+</div>
+</div>
+
+{% endblock %}
+
+    

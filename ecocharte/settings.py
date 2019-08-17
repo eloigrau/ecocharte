@@ -144,7 +144,7 @@ HAYSTACK_CONNECTIONS = {
     'PATH': os.path.join(os.path.dirname(__file__), 'search_index'),
   },
 }
-#AUTH_USER_MODEL = 'ec.Profil'
+AUTH_USER_MODEL = 'ecocharte.Profil'
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
 
@@ -169,7 +169,7 @@ SHORT_DATE_FORMAT = "d F Y"
 #DATE_INPUT_FORMATS = ('%d/%m/%Y',)
 
 
-LOGIN_URL = '/auth/login/'
+LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
