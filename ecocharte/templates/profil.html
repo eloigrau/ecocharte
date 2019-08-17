@@ -9,17 +9,34 @@
 {% leaflet_css %}
 {%endblock%}
 {% block title %}Profil de {{ user.username }} {% endblock %}
-{% block subtitle %}
-<div class="row">
-  <div class="col-md-12 textcenter">
-    <h4> Profil de {{ user.username }}    </h4>
-  </div>
-  </div>
-
-{% endblock %}
 
 {% block content %}
+<div class="site-section">
+      <div class="container">
 
+        <div class="row mb-5 justify-content-center">
+          <div class="col-lg-10 mb-5">
+            <div class="site-section-heading" data-aos="fade-up">
+                <h2 class="text-center">Mon profil </h2>
+            </div>
+          </div>
+        </div>
+        <div class="row-sm-12" data-aos="fade-up" data-aos-delay="500">
+          <div class="col-md-12" data-aos="fade-up" data-aos-delay="500">
+
+
+<div class="row justify-content-center">
+  <div class="col-sm-12 col-md-10 mb-5 text-center">
+          {%if request.user.a_signe %}
+            <button type="button" class="btn btn-lg btn-success" disabled>
+                j'ai signé et j'approuve la charte
+            </button>
+          {%else%}
+            <a href="{%url 'signer'%}"><button type="button" class="btn btn-lg btn-warning" >
+                 je n'approuve pas la charte et je n'ai pas encore signé
+  </button></a>
+          {%endif%}
+  </div></div>
 <div class="row justify-content-center">
   <div class="col-sm-12 col-md-10">
       {%if request.user == user %}
@@ -29,7 +46,8 @@
             </button>
         </a>
       {%endif%}
-      <table class="table table-condensed tablepanier table-striped"><tbody>
+      <table class="table table-condensed tablepanier table-striped">
+          <tbody>
 
         <tr>
             <td style="width:250px">Pseudo :</td>
@@ -59,18 +77,15 @@
                     </tr>
             </tr>
 
-                    <tr>
-                        <td style="width:250px">A signé la charte :</td>
-                        <td>{{ user.a_signe|safe }}</td>
-                    </tr>
         {% endif %}
       </tbody>
-    </table>
+      </table>
+
       </div>
 </div>
-<div class="row">
+<div class="row justify-content-center">
 
-  <div class="col-md-6">
+  <div class="col-sm-12 col-md-10">
       {%if request.user.id == user.id %}
         <a href="{% url 'profil_modifier_adresse' %}">
             <button type="button" class="btn btn-sm btn-warning">
@@ -99,6 +114,9 @@
     </table>
       <small> {% if  request.user == user %}Les champs notés par un ^ ne sont visibles que par vous. {%endif%}Les champs notés par un * ne sont visibles que par les membres "permacat"</small>
   </div>
+  </div>
+
+<div class="row justify-content-center">
 
   <div class="col-md-6">
               <style>
@@ -131,6 +149,12 @@
         {% leaflet_map "yourmap" callback="window.map_init_basic" %}
 </div>
 </div>
+        </div>
+        </div>
+    </div>
+</div>
+
+
 
 {% endblock %}
 

@@ -47,8 +47,8 @@ class ProfilChangeForm(UserChangeForm):
     """
     email = forms.EmailField(label="Email")
     username = forms.CharField(label="Pseudonyme")
-    description = forms.CharField(label="Description", help_text="Une description de vous même",widget=SummernoteWidget)
-    inscrit_newsletter = forms.BooleanField(required=False)
+    description = forms.CharField(label="Description", help_text="Une description de vous-même", required=False)
+    inscrit_newsletter = forms.BooleanField(required=False, label="J'accepte de recevoir des emails")
     accepter_annuaire = forms.BooleanField(required=False, label="J'accepte d'apparaitre dans l'annuaire du site et la carte et rend mon profil visible par tous")
     password=None
 
@@ -112,9 +112,7 @@ class ContactForm(forms.Form):
 
 
 class SignerForm(forms.Form):
-    renvoi = forms.BooleanField(label="J'ai lu la charte",
-                                     help_text="Cochez si vous avez bien lu la charte.", required=False
+    renvoi = forms.BooleanField(label="J'ai lu la charte", required=True
                                  )
-    accepter = forms.BooleanField(label="J'accepte les termes de la charte",
-                                     help_text="Cochez si vous avez bien lu la charte.", required=True
+    accepter = forms.BooleanField(label="J'accepte les termes de la charte, et je m'engage à les appliquer", required=True
                                  )
