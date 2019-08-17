@@ -13,6 +13,7 @@ django-rest-framework==0.1.0
 django-scheduler==0.8.8
 django-widget-tweaks==1.4.5
 django-summernote==0.8.11.4
+gunicorn==19.9.0
 requests==2.20.1
 pytest-runner==5.1
 python-dateutil==2.8.0
