@@ -41,7 +41,7 @@
       </div>
       <div class="site-mobile-menu-body"></div>
     </div>
-
+<a name="top"></a>
     <header class="site-navbar py-3" role="banner">
       <div class="container-fluid">
         <div class="row align-items-center">
@@ -103,6 +103,11 @@
  {% block content %}
   {% endblock %}
 
+        <div class="row">
+          <div class="col-md-12 text-center">
+  <a href="#top">  <h3>{% fontawesome_icon 'arrow-circle-up' %} </h3>  </a></a>
+          </div></div>
+
  {% block messages %}
   <hr>
  <div class="site-section">
@@ -121,10 +126,10 @@
 {% for comment in commentaires %}
     <div class="row {% if comment.auteur.id == request.user.id %} msg-auteur  {%else%} msg-destinataire{%endif%}">
 
-        <div class="col-sm-3 col-md-3 col-lg-2">
+        <div class="col-sm-4 col-md-4 col-lg-3">
            <p class="infos  textepetit">{{ comment.date_creation|date:"d/m/Y, G:i" }}{% ifchanged %}, {{comment.auteur}}{% endifchanged %}</p>
         </div>
-        <div class=" col-sm-9 col-md-9 col-lg-10 message ">
+        <div class=" col-sm-8 col-md-8 col-lg-9 message ">
                 <div class="col">{{ comment.message|safe|url}}</div>
         </div>
     </div>

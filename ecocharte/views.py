@@ -38,11 +38,10 @@ def handler400(request, template_name="400.html"):   #requete invalide
 
 def bienvenue(request):
     commentaires = Message.objects.filter(type_article="5").order_by("date_creation")
-    if request.user.is_authenticated:
-        form = MessageForm(request.POST or None)
-    else:
-        form =  None
+    form = MessageForm(request.POST or None)
     if form.is_valid():
+        if not request.user.is_authenticated:
+            return redirect('login')
         comment = form.save(commit=False)
         comment.auteur = request.user
         comment.type_article="5"
@@ -274,7 +273,7 @@ def preconisations(request):
     return render(request, '3_preconisations.html', {"dico_risques":dico_risques, 'form': form, 'commentaires': commentaires})
 
 def charte(request):
-    dico_charte =[("promouvoir l'agriculture ",
+    dico_charte =[("1) Promouvoir l'agriculture ",
       ("Aider à la création de fermes agro-ecologiques",
        "Soutenir ou aider à la création de coopératives agricoles",
        "Interdire tous les pesticides dans la commune",
@@ -285,14 +284,14 @@ def charte(request):
        "Favoriser l'agriculture biologique et la permaculture dans ma commune",),
       ),
 
-      ("Préserver les ressources",
+      ("2) Préserver les ressources",
        (" Limiter l'usage de l'eau au strict minimum",
         " Penser les transports du futur pour économiser l'energie: <ol><li> mobilité douce (vélo, charrettes, bateaux),</li><li>transports en commun (bus, taxi collectifs, espaces dédiés au covoiturage au sein de la commune, etc).</li><li>nouvelles technologies : bornes de rechargement pour les véhicules électriques, à partir d'énergie renouvelable et locale. Usine d'hydrogène, centrales solaires (thermiques et électriques), etc.</li></ol>",
         " Encourager la création d'une filière bois/énergie locale et durable",
         " Arrêter toute artificialisation des terres (n'accepter aucun nouveaux projet de construction qui ne soit pas vraiment eco-responsable)"
         ),),
 
-     ("Développer l'économie locale",
+     ("3) Développer l'économie locale en tenant compte de l'environnement en priorité",
       (" Préserver et valoriser notre patrimoine culturel, foncier et historique",
        " Aider au déploiement des monnaies alternatives",
        " Participer à la création de filières locales, en créant de l'économie circulaire",
@@ -301,7 +300,7 @@ def charte(request):
        " Encourager le tourisme éco-responsable, et limiter les activités touristiques polluantes ou consommatrices  d'eau (golf, .piscine privées, etc)",
        ),),
 
-     ("Urbaniser intelligemment",
+     ("4) Urbaniser intelligemment",
      (" préserver notre identité paysagère, respecter notre patrimoine architectural",
       " Végétaliser, reboiser, replanter les haies, préserver les canaux d'arrosage",
       " Intégrer les activités agricoles dans les villes et villages",
@@ -311,11 +310,11 @@ def charte(request):
       "Laisser de la place pour la faune et la flore sauvage",
       "Prendre soin des cours d'eau, et des canaux d'irrigation"),
       ),
-     ("Encourager la  citoyenneté ",
+     ("5) Encourager la  citoyenneté ",
      ("Créer des assemblées locales citoyennes pour informer et débattre autour des enjeux du changement climatique et de la fin du pétrole.",
         "Proposer des salles pour développer le domaine associatif local",
       ),),
-      ("Contrôler la démographie ",
+      ("6) Contrôler la démographie ",
       ( " Limiter le tourisme de masse à basse valeur ajoutée en imposant des normes écologiques (par exemple taxer les ordures au delà d'un certain seuil, ou imposer un 'visa touristique' qui permette de traiter les dégats écologiques du tourisme)",
         " Contrôler le foncier",
         " Densifier les zones d'habitat",
@@ -323,7 +322,7 @@ def charte(request):
         " Aider à l'intégration des migrants dans les fermes agro-écologiques", " Inclure les personnes âgées dans les activités de la commune, y compris et surtout pour animer les assemblées locales.",
         " Accueillir dignement les migrants, du nord ou du sud, en les faisant participer à la vie des communes.", ),
        ),
-     ("Respecter notre identité",
+     ("7) Respecter notre identité",
      ("Adopter la signalétique de la commune (nom des voies, monuments, affiches, etc) en catalan",
       "Respecter les traditions séculaires catalanes",
       "Favoriser le bilinguisme au sein des établissements scolaires et de la mairie",
