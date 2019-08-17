@@ -50,7 +50,6 @@ urlpatterns = [
     url(r'^accounts/profil_supprimer/$', login_required(views.profil_supprimer.as_view()), name='profil_supprimer',),
     url(r'^accounts/profil_modifier_adresse/$', login_required(views.profil_modifier_adresse.as_view()), name='profil_modifier_adresse',),
 
-    url(r'^permacat/statuts/$', views.statuts, name='statuts'),
     url(r'^merci/$', views.merci, name='merci'),
     url(r'^register/$', views.register, name='senregistrer', ),
     url(r'^password/change/$', views.change_password, name='change_password'),
