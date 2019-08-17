@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="site-section">
+      <div class="container">
+        <div class="row mb-5">
+            <p>En tant qu'élu et/ou citoyen, je m'engage à faire tout mon possible pour soutenir les mesures suivantes :</p></div>
+      </div></div>
+
+<div class="site-section">
+      <div class="container">
+{% for pb in dico_charte %}
+        <div class="row mb-5">
+          <div class="col-lg-4 ">
+            <div class="site-section-heading" data-aos="fade-up" data-aos-delay="100">
+              <h2>pb.0 </h2>
+            </div>
+          </div>
+        </div>
+        <div class="row mb-5">
+          <div class="col-12" data-aos="fade-up" data-aos-delay="300">
+            <img src="images/hero_1.jpg" alt="Image" class="img-fluid">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4" data-aos="fade-up" data-aos-delay="400"><span class="text-primary">{{pb.1.0}}</span></div>
+          <div class="col-md-6" data-aos="fade-up" data-aos-delay="500">
+              </p>{{pb.1.1|safe}}<p>
+          </div>
+        </div>
+              {%endfor%}
+      </div>
+    </div>
+
+<div class="site-section">
+      <div class="container">
+        <div class="row mb-5">
+            <p>Ce sont des solutions qui peut paraitre un peu trop ambitieuse, mais cette réponse est tout juste proportionnelle au scénario qui n'est pas le pire... Si nous (surtout les élus) ne faisons rien, nous serons tenus responsables, à juste titre, de la catastrophe.  Et alors qui peut dire ce qu'il adviendra...
+</p></div>
+      </div></div>
+{% endblock %}
+
+
