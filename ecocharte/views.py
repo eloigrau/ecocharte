@@ -9,8 +9,8 @@ from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import Group, User
 from django.core.mail import mail_admins, send_mail, BadHeaderError
-from .forms import ProfilCreationForm, ContactForm, AdresseForm, SignerForm, ProfilChangeForm
-from .models import Profil, Adresse
+from .forms import ProfilCreationForm, ContactForm, AdresseForm, SignerForm, ProfilChangeForm, MessageForm
+from .models import Profil, Adresse, Message
 from django.views.generic import ListView, UpdateView, DeleteView
 
 CharField.register_lookup(Lower, "lower")
@@ -37,7 +37,19 @@ def handler400(request, template_name="400.html"):   #requete invalide
     return response
 
 def bienvenue(request):
-    return render(request, 'bienvenue.html', {})
+    commentaires = Message.objects.filter(type_article="5").order_by("date_creation")
+    if request.user.is_authenticated:
+        form = MessageForm(request.POST or None)
+    else:
+        form =  None
+    if form.is_valid():
+        comment = form.save(commit=False)
+        comment.auteur = request.user
+        comment.type_article="5"
+        comment.save()
+        return redirect(request.path)
+
+    return render(request, 'bienvenue.html', { 'form': form, 'commentaires': commentaires})
 
 
 def presentation_site(request):
@@ -180,12 +192,34 @@ def liens(request):
         'https://www.monnaielibreoccitanie.org/',
         'http://lejeu.org/',
     ]
-    return render(request, 'liens.html', {'liens':liens})
+    commentaires = Message.objects.filter(type_article="4", valide=True).order_by("date_creation")
+    form = MessageForm(request.POST or None)
+    if form.is_valid():
+        if not request.user.is_authenticated:
+            return redirect('login')
+        comment = form.save(commit=False)
+        comment.auteur = request.user
+        comment.type_article="4"
+        comment.save()
+        return redirect(request.path)
+
+    return render(request, 'liens.html', {'liens':liens, 'form': form, 'commentaires': commentaires})
 
 
 
 def introduction(request):
-    return render(request, '1_introduction.html', )
+    commentaires = Message.objects.filter(type_article="0", valide=True).order_by("date_creation")
+    form = MessageForm(request.POST or None)
+    if form.is_valid():
+        if not request.user.is_authenticated:
+            return redirect('login')
+        comment = form.save(commit=False)
+        comment.auteur = request.user
+        comment.type_article="0"
+        comment.save()
+        return redirect(request.path)
+
+    return render(request, '1_introduction.html', {'form': form, 'commentaires': commentaires}, )
 
 def risques(request):
     dico_risques = [
@@ -198,7 +232,18 @@ def risques(request):
         ("Identité ", " perte de notre culture catalane, de notre patrimoine culturel, artistique et linguistique. Ainsi c'est toute la cohésion du territoire qui est mise à mal. Sans reconnaissance de notre identité, il ne peut y avoir de solidarité, de projet commun et in fine d'organisation politique démocratique locale. Sans identité collective propre, point de salut collectif."),
         ("dépendance totale vis-à-vis de l’extérieur ", " approvisionnement en pétrole, monnaie sous contrôle des banques et des industries polluantes et émettrices de CO2,etc.. décisions politiques centralisées hors de nos frontières"),
     ]
-    return render(request, '2_risques.html', {"dico_risques":dico_risques})
+    commentaires = Message.objects.filter(type_article="1", valide=True).order_by("date_creation")
+    form = MessageForm(request.POST or None)
+    if form.is_valid():
+        if not request.user.is_authenticated:
+            return redirect('login')
+        comment = form.save(commit=False)
+        comment.auteur = request.user
+        comment.type_article="1"
+        comment.save()
+        return redirect(request.path)
+
+    return render(request, '2_risques.html', {"dico_risques":dico_risques, 'form': form, 'commentaires': commentaires})
 
 def preconisations(request):
     dico_risques = [ ("Soutien à l'agriculture (biologique et permacole) ",
@@ -215,7 +260,18 @@ def preconisations(request):
      ("Décroissance", "limitation prévisionnelle des usages  (industries, transport, domestique) de l'énergie, afin d'anticiper leur diminution d'approvisionnement.")
     ]
 
-    return render(request, '3_preconisations.html', {"dico_risques":dico_risques})
+    commentaires = Message.objects.filter(type_article="2", valide=True).order_by("date_creation")
+    form = MessageForm(request.POST or None)
+    if form.is_valid():
+        if not request.user.is_authenticated:
+            return redirect('login')
+        comment = form.save(commit=False)
+        comment.auteur = request.user
+        comment.type_article="2"
+        comment.save()
+        return redirect(request.path)
+
+    return render(request, '3_preconisations.html', {"dico_risques":dico_risques, 'form': form, 'commentaires': commentaires})
 
 def charte(request):
     dico_charte =[("promouvoir l'agriculture ",
@@ -273,8 +329,18 @@ def charte(request):
       "Favoriser le bilinguisme au sein des établissements scolaires et de la mairie",
       ),)
     ]
+    commentaires = Message.objects.filter(type_article="3", valide=True).order_by("date_creation")
+    form = MessageForm(request.POST or None)
+    if form.is_valid():
+        if not request.user.is_authenticated:
+            return redirect('login')
+        comment = form.save(commit=False)
+        comment.auteur = request.user
+        comment.type_article="3"
+        comment.save()
+        return redirect(request.path)
 
-    return render(request, 'charte.html', {"dico_charte":dico_charte})
+    return render(request, 'charte.html', {"dico_charte":dico_charte, 'form': form, 'commentaires': commentaires})
 
 
 

@@ -3,6 +3,7 @@
 {% load i18n %}
 {% load l10n %}
 {% load fontawesome %}
+{% load app_filters %}
 {%block header_document %}
 {%endblock%}
 {% spaceless %}
@@ -50,8 +51,8 @@
           <div class="col-12 col-md-10 d-none d-xl-block">
             <nav class="site-navigation position-relative text-right" role="navigation">
               <ul class="site-menu js-clone-nav mx-auto d-none d-lg-block">
-                <li><a href="{% url 'bienvenue' %}">Accueil</a></li>
-                    <li class="nav-item dropdown  active">
+                <li class="active"><a href="{% url 'bienvenue' %}">Accueil</a></li>
+                    <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="dropdown1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Documentation</a>
               <div class="dropdown-menu" aria-labelledby="dropdown10">
                 <a class="dropdown-item" href="{% url 'introduction'%}">Introduction</a>
@@ -102,6 +103,59 @@
  {% block content %}
   {% endblock %}
 
+ {% block messages %}
+  <hr>
+ <div class="site-section">
+  <div class="container">
+        <div class="row mb-5">
+          <div class="col-md-12">
+
+<div class="row textcenter">
+    <h4>Commentaires</h4>
+</div>
+<div class="row textcenter">
+  <h6>(les commentaires sont validés avant publication)</h6>
+</div>
+
+<div class=" commentaires" id="idConversation">
+{% for comment in commentaires %}
+    <div class="row {% if comment.auteur.id == request.user.id %} msg-auteur  {%else%} msg-destinataire{%endif%}">
+
+        <div class="col-sm-3 col-md-3 col-lg-2">
+           <p class="infos  textepetit">{{ comment.date_creation|date:"d/m/Y, G:i" }}{% ifchanged %}, {{comment.auteur}}{% endifchanged %}</p>
+        </div>
+        <div class=" col-sm-9 col-md-9 col-lg-10 message ">
+                <div class="col">{{ comment.message|safe|url}}</div>
+        </div>
+    </div>
+{% endfor %}
+</div>
+    <script>
+    var messageBody = document.querySelector('#idConversation');
+    messageBody.scrollTop = idConversation.scrollHeight - idConversation.clientHeight;
+</script>
+
+<hr>
+<div>
+    <input type="hidden" name="Nouveau Message" value="{{ message }}">
+
+<div>
+<form class="form-horizontal" role="form" action="" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <input type="hidden" name="Nouveau Message" value="{{ message_defaut }}">
+    {% include 'form_template3.html' %}
+</form>
+</div>
+
+    <script>
+    getElementById("id_commentaire_iframe").height = "150px"
+</script>
+          </div>
+        </div>
+      </div>
+</div>
+
+  {% endblock %}
 
 {% comment %}
     <footer class="site-footer">

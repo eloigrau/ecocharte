@@ -14,7 +14,8 @@ LATITUDE_DEFAUT = '42.6976'
 LONGITUDE_DEFAUT = '2.8954'
 
 class Choix():
-    type_message = ('0','commentaire'), ("1","Coquille"), ('2','Reflexion')
+    type_message = ('0','commentaire'), ("1","coquille"), ('2','Reflexion')
+    type_article = ('0','intro'), ("1","constat"), ('2','preconisations'), ('3','charte'), ('4','liens'), ('5','accueil')
 
 class Adresse(models.Model):
     code_postal = models.CharField(max_length=5, blank=True, null=True, default="66000")
@@ -117,6 +118,10 @@ class Message(models.Model):
     type_message = models.CharField(max_length=10,
         choices=(Choix.type_message),
         default='0', verbose_name="type de message")
+    type_article = models.CharField(max_length=10,
+        choices=(Choix.type_article),
+        default='0', verbose_name="reaction à")
+    valide = models.BooleanField(verbose_name="validé", default=False)
 
     def __unicode__(self):
         return self.__str()

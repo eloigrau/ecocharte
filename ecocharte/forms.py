@@ -88,10 +88,11 @@ class ContactForm(forms.Form):
 
 
 class MessageForm(forms.ModelForm):
+    message = forms.CharField(max_length=100, label="Laisser un commentaire...",)
 
     class Meta:
         model = Message
-        exclude = ['auteur']
+        exclude = ['auteur', 'date_creation', 'type_article', 'type_message', 'valide']
 
         widgets = {
                 'message': forms.Textarea(attrs={'rows': 2}),
