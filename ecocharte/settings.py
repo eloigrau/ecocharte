@@ -350,5 +350,8 @@ SUMMERNOTE_CONFIG = {
 #'js': {
 #},
 }
-import django_heroku
-django_heroku.settings(locals())
+try:
+    import django_heroku
+    django_heroku.settings(locals())
+except:
+    pass
