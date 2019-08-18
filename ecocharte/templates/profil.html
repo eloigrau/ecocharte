@@ -71,10 +71,12 @@
                 <td>{{ user.email }}</td>
             </tr>
 
+              {% if user.description %}
                     <tr>
                         <td style="width:250px">Description :</td>
                         <td>{{ user.description|safe }}</td>
                     </tr>
+              {% endif %}
             </tr>
 
         {% endif %}

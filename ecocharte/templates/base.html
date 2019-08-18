@@ -10,7 +10,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title><3 <3 <3 <3 <3 <3 <3</title>
+    <title>Charte Ecologique en Pays Catalan</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -30,10 +30,9 @@
   </head>
   <body>
 
+<a name="top"></a>
+
   <div class="site-wrap">
-
-{% comment %}
-
     <div class="site-mobile-menu">
       <div class="site-mobile-menu-header">
         <div class="site-mobile-menu-close mt-3">
@@ -42,7 +41,6 @@
       </div>
       <div class="site-mobile-menu-body"></div>
     </div>
-<a name="top"></a>
     <header class="site-navbar py-3" role="banner">
       <div class="container-fluid">
         <div class="row align-items-center">
@@ -98,8 +96,18 @@
       </div>
     </header>
 
+
+ <div class="site-section">
+      <div class="container">
+        <div class="row mb-5  align-items-center">
+          <div class="col-lg-10 ">
  {% block subtitle %}
   {% endblock %}
+            </div>
+          </div>
+        </div>
+        </div>
+        </div>
 
  {% block content %}
   {% endblock %}
@@ -118,9 +126,6 @@
 
 <div class="row textcenter">
     <h4>Commentaires</h4>
-</div>
-<div class="row textcenter">
-  <h6>(les commentaires sont validés avant publication)</h6>
 </div>
 
 <div class=" commentaires" id="idConversation">
@@ -163,9 +168,6 @@
 
   {% endblock %}
 
-{% endcomment %}
- {% block content %}
-  {% endblock %}
 {% comment %}
     <footer class="site-footer">
       <div class="container">

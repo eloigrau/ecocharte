@@ -215,7 +215,8 @@ def liens(request):
         'https://www.monnaielibreoccitanie.org/',
         'http://lejeu.org/',
     ]
-    commentaires = Message.objects.filter(type_article="4", valide=True).order_by("date_creation")
+    #commentaires = Message.objects.filter(type_article="4", valide=True).order_by("date_creation")
+    commentaires = Message.objects.filter(type_article="4").order_by("date_creation")
     form = MessageForm(request.POST or None)
     if form.is_valid():
         if not request.user.is_authenticated:
@@ -231,7 +232,7 @@ def liens(request):
 
 
 def introduction(request):
-    commentaires = Message.objects.filter(type_article="0", valide=True).order_by("date_creation")
+    commentaires = Message.objects.filter(type_article="0").order_by("date_creation")
     form = MessageForm(request.POST or None)
     if form.is_valid():
         if not request.user.is_authenticated:
@@ -255,7 +256,7 @@ def risques(request):
         ("Identité ", " perte de notre culture catalane, de notre patrimoine culturel, artistique et linguistique. Ainsi c'est toute la cohésion du territoire qui est mise à mal. Sans reconnaissance de notre identité, il ne peut y avoir de solidarité, de projet commun et in fine d'organisation politique démocratique locale. Sans identité collective propre, point de salut collectif."),
         ("dépendance totale vis-à-vis de l’extérieur ", " approvisionnement en pétrole, monnaie sous contrôle des banques et des industries polluantes et émettrices de CO2,etc.. décisions politiques centralisées hors de nos frontières"),
     ]
-    commentaires = Message.objects.filter(type_article="1", valide=True).order_by("date_creation")
+    commentaires = Message.objects.filter(type_article="1").order_by("date_creation")
     form = MessageForm(request.POST or None)
     if form.is_valid():
         if not request.user.is_authenticated:
@@ -283,7 +284,7 @@ def preconisations(request):
      ("Décroissance", "limitation prévisionnelle des usages  (industries, transport, domestique) de l'énergie, afin d'anticiper leur diminution d'approvisionnement.")
     ]
 
-    commentaires = Message.objects.filter(type_article="2", valide=True).order_by("date_creation")
+    commentaires = Message.objects.filter(type_article="2").order_by("date_creation")
     form = MessageForm(request.POST or None)
     if form.is_valid():
         if not request.user.is_authenticated:
@@ -352,7 +353,7 @@ def charte(request):
       "Favoriser le bilinguisme au sein des établissements scolaires et de la mairie",
       ),)
     ]
-    commentaires = Message.objects.filter(type_article="3", valide=True).order_by("date_creation")
+    commentaires = Message.objects.filter(type_article="3").order_by("date_creation")
     form = MessageForm(request.POST or None)
     if form.is_valid():
         if not request.user.is_authenticated:

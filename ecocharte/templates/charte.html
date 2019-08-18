@@ -1,7 +1,18 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<div class="site-section">
+ <div class="site-section">
+      <div class="container">
+        <div class="row mb-5  align-items-center">
+          <div class="col-lg-10 ">
+            <div class="site-section-heading" data-aos="fade-up" data-aos-delay="100">
+              <h2 class="text-center">La charte écologogique du Pays Catalan</h2>
+            </div>
+          </div>
+        </div>
+        </div>
+        </div>
+<div class="site-section ">
       <div class="container">
         <div class="row mb-5">
             <h5>En tant qu'élu et/ou citoyen, je m'engage à faire tout mon possible pour soutenir les mesures suivantes :</h5></div>
@@ -50,8 +61,8 @@
                 je suis solidaire et j'ai déjà approuvé la charte
             </button>
               {%else%}
-             <a href="{% url 'signer' %}" class="btn-custom" data-aos="fade-up" data-aos-delay="400"><span>Je soutiens la démarche, je signe !</span></a>
-
+             <a href="{% url 'signer' %}" class="btn-custom" data-aos="fade-up" data-aos-delay="400"><span>Je soutiens la démarche,
+              {%if user.is_authenticated %}je m'identifie et{%endif%} je signe !</span></a>
               {%endif%}
          </div>
         </div>
