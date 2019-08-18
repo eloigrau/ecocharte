@@ -1,16 +1,19 @@
 {% extends 'base.html' %}
 {% block content %}
 
- <div class="site-section">
+ <div class="site-section  site-hero">
       <div class="container">
-
-        <div class="row mb-5 justify-content-center">
-          <div class="col-lg-10 mb-5">
-            <div class="site-section-heading" data-aos="fade-up">
-              <h2 class="text-center">Le constat : des risques majeurs sur notre territoire</h2>
+        <div class="row mb-5  align-items-center">
+          <div class="col-lg-10 ">
+            <div class="site-section-heading" data-aos="fade-up" data-aos-delay="100">
+              <h2 class="text-center">II. Le constat : des risques majeurs sur notre territoire</h2>
             </div>
           </div>
         </div>
+        </div>
+        </div>
+ <div class="site-section">
+      <div class="container">
         <div class="row mb-5">
           <div class="col-12" data-aos="fade-up" data-aos-delay="300">
             <img src="images/hero_1.jpg" alt="Image" class="img-fluid">
@@ -28,6 +31,15 @@
     </div>
 
 
+ <div class="site-section">
+      <div class="container">
+        <div class="row mb-5">
+          <div class="col-lg-10 text-center">
+            <a href="{%url 'preconisations'%}" class="btn-custom" data-aos="fade-up" data-aos-delay="600"><span>Les préconisations </span></a>
+          </div>
+        </div>
+      </div>
+ </div>
 {% endblock %}
 
 

@@ -2,17 +2,21 @@
 {% block content %}
 
 
-<div class="site-section">
+ <div class="site-section  site-hero">
       <div class="container">
-        <div class="row mb-5">
-          <div class="col-lg-6 ">
+        <div class="row mb-5  align-items-center">
+          <div class="col-lg-10 ">
             <div class="site-section-heading" data-aos="fade-up" data-aos-delay="100">
-              <h2>Nos préconisations</h2>
+              <h2>III. Nos préconisations</h2>
             </div>
           </div>
         </div>
+        </div>
+        </div>
+<div class="site-section">
+      <div class="container">
         <div class="row mb-5">
-          <div class="col-12" data-aos="fade-up" data-aos-delay="300">
+          <div class="col-12" data-aos="fade-up" data-aos-delay="100">
             <img src="images/hero_1.jpg" alt="Image" class="img-fluid">
           </div>
         </div>
@@ -22,8 +26,8 @@
       </div></div>
         <div class="row">
 {% for pb in dico_risques %}
-          <div class="col-md-3" data-aos="fade-up" data-aos-delay="400"><span class="text-primary">{{pb.0}}</span></div>
-          <div class="col-md-9" data-aos="fade-up" data-aos-delay="500">
+          <div class="col-md-3" data-aos="fade-up" data-aos-delay="200"><span class="text-primary">{{pb.0}}</span></div>
+          <div class="col-md-9" data-aos="fade-up" data-aos-delay="400">
               </p>{{pb.1|safe}}<p>
           </div>
               {%endfor%}
@@ -39,6 +43,16 @@
 
       </div>
 </div>
+
+ <div class="site-section">
+      <div class="container">
+        <div class="row mb-5">
+          <div class="col-lg-10 text-center">
+            <a href="{%url 'charte'%}" class="btn-custom" data-aos="fade-up" data-aos-delay="600"><span>La charte</span></a>
+          </div>
+        </div>
+      </div>
+ </div>
 {% endblock %}
 
 
