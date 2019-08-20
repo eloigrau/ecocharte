@@ -54,7 +54,7 @@ class ProfilChangeForm(UserChangeForm):
 
     class Meta:
         model = Profil
-        fields = ['username', 'first_name', 'last_name', 'email',  'description', 'accepter_annuaire', 'inscrit_newsletter']
+        fields = ['username', 'first_name', 'last_name', 'email',  'description', 'accepter_annuaire', 'inscrit_newsletter', 'a_signe']
 
 
 class ProfilChangeForm_admin(UserChangeForm):

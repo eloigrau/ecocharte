@@ -42,6 +42,7 @@ urlpatterns = [
     url(r'^faq/$', views.faq, name='faq'),
     url(r'^contact/$', views.contact, name='contact', ),
     url(r'^signer/$', views.signer, name='signer', ),
+    url(r'^statistiques/$', views.statistiques, name='statistiques', ),
 
     url(r'^accounts/profil/(?P<user_id>[0-9]+)/$', login_required(views.profil), name='profil', ),
     url(r'^accounts/profil/(?P<user_username>[-\w.]+)/$', login_required(views.profil_nom), name='profil_nom', ),

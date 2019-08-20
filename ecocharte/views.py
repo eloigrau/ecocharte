@@ -90,7 +90,7 @@ class profil_modifier_user(UpdateView):
     model = Profil
     form_class = ProfilChangeForm
     template_name_suffix = '_modifier'
-    fields = ['username', 'first_name', 'last_name', 'email','description', 'a_valide',
+    fields = ['username', 'first_name', 'last_name', 'email','description', 'a_signe',
               'accepter_annuaire', 'inscrit_newsletter']
 
     def get_object(self):
@@ -195,6 +195,10 @@ def cgu(request):
 
 def fairedon(request):
     return render(request, 'fairedon.html', )
+
+def statistiques(request):
+    nb_inscrits = Profil.objects.all().count()
+    return render(request, 'statistiques.html', {"nb_inscrits":nb_inscrits})
 
 def liens(request):
     liens = [
