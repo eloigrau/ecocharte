@@ -203,7 +203,7 @@ except:
     GMAIL_SMTP_PASSWORD = 'test'
 
 ADMINS = (
-    ('Asso_admin', 'ecocharte.cat@gmail.com'),
+    ('admin', 'ecocharte.cat@gmail.com'),
 )
 MANAGERS = ADMINS
 BASE_URL = "https://ecocharte.herokuapp.com"
