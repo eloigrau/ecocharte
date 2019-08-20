@@ -1,5 +1,5 @@
 
-{% extends 'base.html' %}
+{% extends 'base_sanscommentaire.html' %}
 {% block headerDocument%}
 {% load leaflet_tags %}
 {% load static %}
@@ -114,7 +114,6 @@
         {% endif %}
     </tbody>
     </table>
-      <small> {% if  request.user == user %}Les champs notés par un ^ ne sont visibles que par vous. {%endif%}</small>
   </div>
   </div>
 
