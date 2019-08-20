@@ -25,7 +25,6 @@ except:
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-# Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
@@ -356,8 +355,14 @@ SUMMERNOTE_CONFIG = {
 #'js': {
 #},
 }
-try:
+if not LOCALL:
     import django_heroku
     django_heroku.settings(locals())
-except:
-    pass
+
+SECURE_HSTS_SECONDS = 518400
+SECURE_CONTENT_TYPE_NOSNIFF = True
+SECURE_BROWSER_XSS_FILTER = True
+SECURE_SSL_REDIRECT  = True
+SESSION_COOKIE_SECURE  = True
+CSRF_COOKIE_SECURE = True
+X_FRAME_OPTIONS = 'DENY'
