@@ -206,9 +206,8 @@ STATIC_URL = '/static/'
 
 # Extra places for collectstatic to find static files.
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
+    os.path.join(BASE_DIR, 'static'), os.path.join(BASE_DIR, 'ecocharte/static'), os.path.join(BASE_DIR, '../ecocharte/static'),
 )
-
 if LOCALL:
     STATICFILES_DIRS = (os.path.normpath(os.path.join(BASE_DIR, 'staticfiles/')), )
     STATIC_ROOT = os.path.normpath(os.path.join(BASE_DIR, 'static/'))
