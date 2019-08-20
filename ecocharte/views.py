@@ -263,7 +263,7 @@ def risques(request):
             return redirect('login')
         comment = form.save(commit=False)
         comment.auteur = request.user
-        comment.type_article="1"
+        comment.type_article = "1"
         comment.save()
         return redirect(request.path)
 
@@ -278,7 +278,7 @@ def preconisations(request):
      ("Economie",
       "Le développement économique doit être re-pensé en incluant des limites : limites d'usage du sol, d'usage du pétrole, limite de la démographie. Refonder l'économie autour de l'agriculture est une solution possible. Le développement d'alternatives à la monnaie-dette 'euro' doit être encouragé et progressivement développé, pour se protéger d'une crise économique majeure de la zone euro (qui ne saurait tarder selon toute vraisemblance). La solution passe par l'utilisation croissante du Soudaqui (monnaie locale adossée à l'euro, pour l'instant) ou de la Monnaie Libre (monnaie sur internet basée sur la technologie de la 'blockchain''), dans une économie locale circulaire et équitable, notamment en payant une partie des salaires des fonctionnaires et élus locaux en monnaie alternative. Mais aussi en les utilisant dans les coopératives agricoles et les différentes filières restaurées ou crées ad hoc  (bois/énergie, paille/fourrage/construction, briques/construction. etc.)" ),
      ("Création d'assemblées citoyennes ", "pour informer, débattre, créer du lien, s'organiser localement sans attendre que les autres le fassent pour nous. Pour résoudre aussi les conflits qui vont se multiplier entre nous (la justice française n'est plus à la hauteur, et de plus en plus débordée et inefficace). Chaque commune doit pouvoir créer à sa façon des assemblées régulières et ayant un certain pouvoir sur les prises de décision au nom de la commune. Il est nécessaire d'impliquer toutes les bonnes volontés, et la population dans son ensemble doit pouvoir participer. Il s'agit d'inventer de nouvelles formes de gouvernance qui tiennent compte des enjeux et aspirations de notre époque. Cela va de pair avec la formation et l'éducation de la jeunesse, et de la population en général, aux enjeux écologiques, économiques, politiques et sociaux."),
-     ("Créer des médias/réseaux sociaux locaux ", " Des réseaux open-source et libres comme www.perma.cat peuvent être des exemples ou une base, qui permettent de s'affranchir des GAFA (Google Amazon Facebook, Apple), immenses pollueurs, et outils puissants de contrôle de la population à notre insu, et d'avoir une information locale plurielle, démocratique et utile à notre cohésion."),
+     ("Créer des médias/réseaux sociaux locaux ", " Des plateformes open-source et libres comme www.perma.cat, ou bien des médias locaux (par exemple 'La Clau') peuvent être des exemples ou une base, qui permettent de s'affranchir des GAFA (Google Amazon Facebook, Apple), immenses pollueurs, et outils puissants de contrôle de la population à notre insu, et d'avoir une information locale plurielle, démocratique et utile à notre cohésion."),
      ("Formation aux (et développement des) 'low technologies' ", "diffusion des techniques non-industrielles que chacun peut se réapproprier avec peu de pétrole et peu de connaissances spécialisées (four solaire, 'rocket stove', velorution, etc)"),
      ("Gestion de l'eau", "réduction drastique de l'usage de l'eau pour préserver nos nappes phréatiques : toilettes sèches et récupération des eaux grises et des eaux de pluie. restauration des canaux historiques pour l'agriculture, création de retenues collinaires pour stocker les pluies, contrôle des forages, interdiction d'arroser les pelouses et limitation des piscines."),
      ("Décroissance", "limitation prévisionnelle des usages  (industries, transport, domestique) de l'énergie, afin d'anticiper leur diminution d'approvisionnement.")
@@ -291,7 +291,7 @@ def preconisations(request):
             return redirect('login')
         comment = form.save(commit=False)
         comment.auteur = request.user
-        comment.type_article="2"
+        comment.type_article = "2"
         comment.save()
         return redirect(request.path)
 
@@ -300,13 +300,13 @@ def preconisations(request):
 def charte(request):
     dico_charte =[("1) Promouvoir l'agriculture ",
       ("Aider à la création de fermes agro-ecologiques",
-       "Soutenir ou aider à la création de coopératives agricoles",
        "Interdire tous les pesticides dans la commune",
        "Replanter les haies et créer des espaces arborés",
-       "outenir ou aider à la création de jardins partagés, ou jardins familiaux",
        "Que les cantines scolaires soient fournies de plus en plus par l'agriculture locale biologique ou permacole",
        "Faire un jardin potager au sein des établissement scolaires en lien avec les maraichers locaux",
        "Favoriser l'agriculture biologique et la permaculture dans ma commune",),
+       "Soutenir ou aider à la création de jardins partagés, ou jardins familiaux",
+       "Soutenir ou aider à la création de coopératives agricoles",
       ),
 
       ("2) Préserver les ressources",
@@ -322,18 +322,18 @@ def charte(request):
        " Participer à la création de filières locales, en créant de l'économie circulaire",
        " Aider à la création de syndicats et coopératives agricoles citoyennes",
        " Créer une caisse de solidarité pour indemniser les victimes des futures catastrophes naturelles (pourquoi pas en monnaie alternative ?)",
-       " Encourager le tourisme éco-responsable, et limiter les activités touristiques polluantes ou consommatrices  d'eau (golf, .piscine privées, etc)",
+       " Encourager le tourisme éco-responsable, et limiter les activités touristiques polluantes ou consommatrices  d'eau (golf, piscine privées, etc)",
        ),),
 
      ("4) Urbaniser intelligemment",
      (" préserver notre identité paysagère, respecter notre patrimoine architectural",
-      " Végétaliser, reboiser, replanter les haies, préserver les canaux d'arrosage",
-      " Intégrer les activités agricoles dans les villes et villages",
+      " Végétaliser, reboiser, replanter les haies", "préserver les canaux d'arrosage",
+      " Intégrer les activités agricoles dans la vie des villes et villages",
       " Utiliser des espaces pour organiser des lieux de vie et des assemblées collectifs",
-      "Controler le foncier en n'oubliant pas d'intégrer les logements sociaux aux activités économiques",
+      " Contrôler le foncier en n'oubliant pas d'intégrer les logements sociaux aux activités économiques",
       " Limiter l'étalement urbain", " favoriser les habitats légers, ou eco-responsables", "aménager des voies cyclables et de covoiturage",
-      "Laisser de la place pour la faune et la flore sauvage",
-      "Prendre soin des cours d'eau, et des canaux d'irrigation"),
+      " Laisser de la place pour la faune et la flore sauvage",
+      " Prendre soin des cours d'eau, et des canaux d'irrigation"),
       ),
      ("5) Encourager la  citoyenneté ",
      ("Créer des assemblées locales citoyennes pour informer et débattre autour des enjeux du changement climatique et de la fin du pétrole.",
@@ -344,13 +344,14 @@ def charte(request):
         " Contrôler le foncier",
         " Densifier les zones d'habitat",
         " Intégrer les nouveaux arrivants en les sensibilisant aux questions écologiques, politiques, économiques et identitaire.",
-        " Aider à l'intégration des migrants dans les fermes agro-écologiques", " Inclure les personnes âgées dans les activités de la commune, y compris et surtout pour animer les assemblées locales.",
-        " Accueillir dignement les migrants, du nord ou du sud, en les faisant participer à la vie des communes.", ),
+        " Inclure les personnes âgées dans les activités de la commune, notamment pour animer les assemblées locales.",
+        " Accueillir dignement les migrants, du nord ou du sud, en les faisant participer à la vie des communes, notammant dans les activités des fermes agro-écologiques", ),
        ),
      ("7) Respecter notre identité",
      ("Adopter la signalétique de la commune (nom des voies, monuments, affiches, etc) en catalan",
       "Respecter les traditions séculaires catalanes",
-      "Favoriser le bilinguisme au sein des établissements scolaires et de la mairie",
+      "Favoriser le bilinguisme au sein des établissements scolaires",
+      "Favoriser le bilinguisme au sein de la mairie et des actes publics",
       ),)
     ]
     commentaires = Message.objects.filter(type_article="3").order_by("date_creation")
