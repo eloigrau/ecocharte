@@ -18,10 +18,6 @@ python manage.py migrate --run-syncdb
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 
-try:
-    import dj_database_url
-except:
-    pass
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -33,7 +29,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: don't run with debug turned on in production!
 try:
     LOCALL = False
-    DEBUG = False
+    DEBUG = True
     SECRET_KEY = os.environ['SECRET_KEY']
     ALLOWED_HOSTS = ['ecocharte.herokuapp.com']
 except:
@@ -43,10 +39,9 @@ except:
 
     ALLOWED_HOSTS = ['127.0.0.1']
 
+if not LOCALL:
+    import dj_database_url
 
-#SECURE_SSL_REDIRECT = False
-#SESSION_COOKIE_SECURE = True
-#CSRF_COOKIE_SECURE = True
 SESSION_EXPIRE_AT_BROWSER_CLOSE=True
 
 
@@ -136,12 +131,7 @@ AUTH_PASSWORD_VALIDATORS = [
     #{'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator', },
 ]
 
-HAYSTACK_CONNECTIONS = {
-  'default': {
-    'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
-    'PATH': os.path.join(os.path.dirname(__file__), 'search_index'),
-  },
-}
+
 AUTH_USER_MODEL = 'ecocharte.Profil'
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
