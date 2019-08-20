@@ -299,21 +299,23 @@ def preconisations(request):
     return render(request, '3_preconisations.html', {"dico_risques":dico_risques, 'form': form, 'commentaires': commentaires})
 
 def charte(request):
-    dico_charte =[("1) Promouvoir l'agriculture ",
+    dico_charte =[
+        ("1) Promouvoir l'agriculture ",
       ("Aider à la création de fermes agro-ecologiques",
        "Interdire tous les pesticides dans la commune",
        "Replanter les haies et créer des espaces arborés",
        "Que les cantines scolaires soient fournies de plus en plus par l'agriculture locale biologique ou permacole",
        "Faire un jardin potager au sein des établissement scolaires en lien avec les maraichers locaux",
-       "Favoriser l'agriculture biologique et la permaculture dans ma commune",),
+       "Favoriser l'agriculture biologique et la permaculture dans ma commune",
        "Soutenir ou aider à la création de jardins partagés, ou jardins familiaux",
        "Soutenir ou aider à la création de coopératives agricoles",
-      ),
+      ),),
 
       ("2) Préserver les ressources",
        (" Limiter l'usage de l'eau au strict minimum",
         " Penser les transports du futur pour économiser l'energie: <ol><li> mobilité douce (vélo, charrettes, bateaux),</li><li>transports en commun (bus, taxi collectifs, espaces dédiés au covoiturage au sein de la commune, etc).</li><li>nouvelles technologies : bornes de rechargement pour les véhicules électriques, à partir d'énergie renouvelable et locale. Usine d'hydrogène, centrales solaires (thermiques et électriques), etc.</li></ol>",
         " Encourager la création d'une filière bois/énergie locale et durable",
+        " Encourager la création d'une filière solaire et d'énergies renouvelables locale et durable",
         " Arrêter toute artificialisation des terres (n'accepter aucun nouveaux projet de construction qui ne soit pas vraiment eco-responsable)"
         ),),
 
@@ -336,11 +338,7 @@ def charte(request):
       " Laisser de la place pour la faune et la flore sauvage",
       " Prendre soin des cours d'eau, et des canaux d'irrigation"),
       ),
-     ("5) Encourager la  citoyenneté ",
-     ("Créer des assemblées locales citoyennes pour informer et débattre autour des enjeux du changement climatique et de la fin du pétrole.",
-        "Proposer des salles pour développer le domaine associatif local",
-      ),),
-      ("6) Contrôler la démographie ",
+      ("5) Contrôler la démographie ",
       ( " Limiter le tourisme de masse à basse valeur ajoutée en imposant des normes écologiques (par exemple taxer les ordures au delà d'un certain seuil, ou imposer un 'visa touristique' qui permette de traiter les dégats écologiques du tourisme)",
         " Contrôler le foncier",
         " Densifier les zones d'habitat",
@@ -348,11 +346,14 @@ def charte(request):
         " Inclure les personnes âgées dans les activités de la commune, notamment pour animer les assemblées locales.",
         " Accueillir dignement les migrants, du nord ou du sud, en les faisant participer à la vie des communes, notammant dans les activités des fermes agro-écologiques", ),
        ),
-     ("7) Respecter notre identité",
+     ("6) Respecter notre identité et  ncourager la  citoyenneté ",
      ("Adopter la signalétique de la commune (nom des voies, monuments, affiches, etc) en catalan",
       "Respecter les traditions séculaires catalanes",
       "Favoriser le bilinguisme au sein des établissements scolaires",
       "Favoriser le bilinguisme au sein de la mairie et des actes publics",
+      "Créer des assemblées locales citoyennes pour informer et débattre autour des enjeux du changement climatique et de la fin du pétrole.",
+      "Proposer des salles pour développer le domaine associatif local",
+      "Créer du lien et de la solidarité entre catalans (habitants et sympathisants du Pays Catalan)",
       ),)
     ]
     commentaires = Message.objects.filter(type_article="3").order_by("date_creation")
