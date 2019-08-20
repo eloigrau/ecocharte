@@ -355,9 +355,11 @@ SUMMERNOTE_CONFIG = {
 #'js': {
 #},
 }
-if not LOCALL:
-    import django_heroku
-    django_heroku.settings(locals())
+
+
+#if not LOCALL:
+#    import django_heroku
+#    django_heroku.settings(locals())
 
 SECURE_HSTS_SECONDS = 518400
 SECURE_CONTENT_TYPE_NOSNIFF = True
