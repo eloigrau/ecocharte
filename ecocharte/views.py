@@ -198,19 +198,21 @@ def fairedon(request):
 
 def liens(request):
     liens = [
-        'http://soudaqui.cat/wordpress/',
+        'https://jancovici.com/',
+        'https://alternatiba.eu/alternatiba66/',
         'https://www.colibris-lemouvement.org/',
         'https://colibris-universite.org/mooc-permaculture/wakka.php?wiki=PagePrincipale',
         'https://ponteillanature.wixsite.com/eco-nature',
         'https://cce-66.wixsite.com/mysite',
         'https://jardindenat.wixsite.com/website',
         'https://www.permapat.com',
+        'http://sel66.free.fr',
+        'https://www.perma.cat',
+        'http://soudaqui.cat/wordpress/',
         'https://framasoft.org',
-        'https://alternatiba.eu/alternatiba66/',
         'http://www.le-message.org/?lang=fr',
         'https://reporterre.net/',
         'https://la-bas.org/',
-        'http://sel66.free.fr',
         'https://www.monnaielibreoccitanie.org/',
         'http://lejeu.org/',
     ]
