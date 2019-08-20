@@ -90,7 +90,7 @@ class profil_modifier_user(UpdateView):
     model = Profil
     form_class = ProfilChangeForm
     template_name_suffix = '_modifier'
-    fields = ['username', 'first_name', 'last_name', 'email', 'site_web', 'description', 'competences', 'pseudo_june',
+    fields = ['username', 'first_name', 'last_name', 'email','description', 'a_valide',
               'accepter_annuaire', 'inscrit_newsletter']
 
     def get_object(self):

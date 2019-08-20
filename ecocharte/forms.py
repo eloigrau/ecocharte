@@ -76,9 +76,6 @@ class ProfilChangeForm_admin(UserChangeForm):
 
     def __init__(self, *args, **kwargs):
         super(ProfilChangeForm_admin, self).__init__(*args, **kwargs)
-        self.fields['description'].strip = False
-        self.fields['competences'].strip = False
-
 class ContactForm(forms.Form):
     sujet = forms.CharField(max_length=100, label="Sujet",)
     msg = forms.CharField(label="Message", widget=forms.Textarea)
