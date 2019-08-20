@@ -147,9 +147,10 @@
 </script>
 
 <hr>
+
+{% if request.user.is_authenticated %}
 <div>
     <input type="hidden" name="Nouveau Message" value="{{ message }}">
-
 <div>
 <form class="form-horizontal" role="form" action="" method="post" enctype="multipart/form-data">
     {% csrf_token %}
@@ -157,7 +158,9 @@
     {% include 'form_template3.html' %}
 </form>
 </div>
-
+{% else %}
+    <p>(Vous devez vous authentifier pour laisser un commentaire, merci !)</p>
+{% endif %}
     <script>
     getElementById("id_commentaire_iframe").height = "150px"
 </script>

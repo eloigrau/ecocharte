@@ -196,7 +196,6 @@ def cgu(request):
 def fairedon(request):
     return render(request, 'fairedon.html', )
 
-@login_required
 def liens(request):
     liens = [
         'http://soudaqui.cat/wordpress/',
