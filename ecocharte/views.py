@@ -350,7 +350,7 @@ def charte(request):
         " Inclure les personnes âgées dans les activités de la commune, notamment pour animer les assemblées locales.",
         " Accueillir dignement les migrants, du nord ou du sud, en les faisant participer à la vie des communes, notammant dans les activités des fermes agro-écologiques", ),
        ),
-     ("6) Respecter notre identité et  ncourager la  citoyenneté ",
+     ("6) Respecter notre identité et encourager la  citoyenneté ",
      ("Adopter la signalétique de la commune (nom des voies, monuments, affiches, etc) en catalan",
       "Respecter les traditions séculaires catalanes",
       "Favoriser le bilinguisme au sein des établissements scolaires",
