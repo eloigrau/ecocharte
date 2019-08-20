@@ -42,7 +42,6 @@ except:
 if not LOCALL:
     import dj_database_url
 
-SESSION_EXPIRE_AT_BROWSER_CLOSE=True
 
 
 # Application definition
@@ -358,3 +357,4 @@ SECURE_SSL_REDIRECT  = True
 SESSION_COOKIE_SECURE  = True
 CSRF_COOKIE_SECURE = True
 X_FRAME_OPTIONS = 'DENY'
+SESSION_EXPIRE_AT_BROWSER_CLOSE=True
