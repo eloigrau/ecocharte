@@ -4,6 +4,7 @@
 {% load l10n %}
 {% load fontawesome %}
 {% load app_filters %}
+{% load visits_tags %}
 {%block header_document %}
 {%endblock%}
 {% spaceless %}
@@ -138,7 +139,7 @@
     <h4>Commentaires</h4>
 </div>
 
-<div class=" commentaires" id="idConversation">
+<div class="site-comment commentaires" id="idConversation">
 {% for comment in commentaires %}
     <div class="row {% if comment.auteur.id == request.user.id %} msg-auteur  {%else%} msg-destinataire{%endif%}">
 
@@ -181,6 +182,12 @@
 
   {% endblock %}
 
+
+{% get_visits request.path as visits %}
+    <footer class="site-footer text-center ">
+        <small>
+         {% if request.user.is_superuser %}{{visits}}| {%endif%} <script>document.write(new Date().getFullYear());</script> </small>
+    </footer>
 {% comment %}
     <footer class="site-footer">
       <div class="container">
@@ -211,7 +218,7 @@
               <div class="border-top pt-5">
               <p>
               <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-              Copyright &copy; <script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart text-primary" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank" >Colorlib</a>
+              Copyright &copy; <script>document.write(new Date().getFullYear());</script> All rights reserved |  template made with <i class="icon-heart text-primary" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank" >Colorlib</a>
               <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
               </p>
             </div>
@@ -225,7 +232,6 @@
 
   <script src="{% static 'js/jquery-3.3.1.min.js'%}"></script>
   <script src="{% static 'js/jquery-migrate-3.0.1.min.js'%}"></script>
-  <script src="{% static 'js/jquery-ui.js'%}"></script>
   <script src="{% static 'js/popper.min.js'%}"></script>
   <script src="{% static 'js/bootstrap.min.js'%}"></script>
   <script src="{% static 'js/owl.carousel.min.js'%}"></script>

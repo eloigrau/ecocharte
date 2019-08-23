@@ -211,12 +211,13 @@ def liens(request):
         'https://jardindenat.wixsite.com/website',
         'https://www.permapat.com',
         'http://sel66.free.fr',
-        'https://www.perma.cat',
+        'http://www.perma.cat',
         'http://soudaqui.cat/wordpress/',
         'https://framasoft.org',
         'http://www.le-message.org/?lang=fr',
         'https://reporterre.net/',
-        'https://la-bas.org/',
+        'https://cerclecataladelrossello.wordpress.com/',
+        'https://www.la-clau.net/',
         'https://www.monnaielibreoccitanie.org/',
         'http://lejeu.org/',
     ]
@@ -253,13 +254,13 @@ def introduction(request):
 def risques(request):
     dico_risques = [
         ("Ressources en berne :", "<ol><li>l'eau en danger: nappes phréatiques en net recul, pollués et salinisées, précipitations en forte diminution, assèchement des cours d'eau et des sols, </li><li> les sols pollués/détruits par l'agro-industrie, </li><li> l'approvisionnement énergétique en danger (principalement le pétrole), </li><li> approvisionnement en nourriture en danger (perte du secteur agricole local, diminution des rendements) </li><li> matériaux de construction importés, sans filières locales écologiques efficientes (bois, paille, briques, sable de construction, matériel électrique comme le cuivre qui s'épuise, etc)</li></ol>"),
-        ("Risques naturels ", "<ol> <li> érosion des sols, </li>  <li> érosion du trait de cote, </li><li> inondations, </li><li> sécheresses,  </li><li>canicules,  </li><li>incendies. </li></ol>" \
+        ("Risques naturels importants", "<ol> <li> érosion des sols, </li>  <li> érosion du trait de cote, </li><li> inondations, </li><li> sécheresses,  </li><li>canicules,  </li><li>incendies. </li></ol>" \
                               "<p>Tous ces risquent augmentent considérablement et de façon non-linéaire (par paliers et donc 'crises') à cause du changement climatique</p>"),
         ("Agriculture en danger ", "disparition des terres agricoles, perte de rendements, disparition/pollution/salinisation de l'eau, sécheresses répétitives, perte des pollinisateurs de la biodiversité qui est nécessaire à l'agriculture. Modèle économique mondialisé, polluant, émetteur de CO2, dépendant du pétrole, appauvrissant la grande majorité des agriculteurs, et proche du krach."),
         ("Economie malade ", "seul le tourisme de masse et 'l'économie résidentielle' semblent être mis en valeur, détruisant ainsi nos nappes, folklorisant notre identité, ne créant que peu d'emplois et souvent saisonniers, à faible valeur ajoutée. Un fort trafic (encore du pétrole) dû à la métropolisation de Perpignan et l’éloignement des zones d'habitation avec les zones commerciales. Chômage massif, et travail au noir généralisé sont le lot de notre département."),
-        ("Aménagement du territoire", " nos paysages sont modifiés par l'Homme de façon désordonnée, irresponsable et inadaptée aux futures crises, par <ol><li> l’appât du gain à court terme (champs d’éoliennes qui défigurent nos paysages sans être une réelle solution écologique, construction sur des terres agricoles fertiles, extension des grands centres commerciaux totalement inadaptés en cas de crise pétrolière, etc), sans parler de la corruption de nos 'élites locales', </li><li> la démographie excessive, sans contrôle du foncier </li><li> Un réseau de transport entièrement pensé avec un pétrole abondant, donc très vulnérable et polluant."),
-        ("Identité ", " perte de notre culture catalane, de notre patrimoine culturel, artistique et linguistique. Ainsi c'est toute la cohésion du territoire qui est mise à mal. Sans reconnaissance de notre identité, il ne peut y avoir de solidarité, de projet commun et in fine d'organisation politique démocratique locale. Sans identité collective propre, point de salut collectif."),
-        ("Dépendance vis-à-vis de l’extérieur ", " approvisionnement en pétrole, monnaie sous contrôle des banques et des industries polluantes et émettrices de CO2, décisions politiques centralisées hors de nos frontières et de notre contrôle, etc."),
+        ("Aménagement du territoire inapproprié", " nos paysages sont modifiés par l'Homme de façon désordonnée, irresponsable et inadaptée aux futures crises, par <ol><li> l’appât du gain à court terme (champs d’éoliennes qui défigurent nos paysages sans être une réelle solution écologique, construction sur des terres agricoles fertiles, extension des grands centres commerciaux totalement inadaptés en cas de crise pétrolière, etc), sans parler de la corruption de nos 'élites locales', </li><li> la démographie excessive, sans contrôle du foncier </li><li> Un réseau de transport entièrement pensé avec un pétrole abondant, donc très vulnérable et polluant."),
+        ("Identité effacée", " perte de notre culture catalane, de notre patrimoine culturel, artistique et linguistique. Ainsi c'est toute la cohésion du territoire qui est mise à mal. Sans reconnaissance de notre identité, il ne peut y avoir de solidarité, de projet commun et in fine d'organisation politique démocratique locale. Sans identité collective propre, point de salut collectif."),
+        ("Dépendance vis-à-vis de l’extérieur ", " approvisionnement en ressources (pétrole, matériaux de construction, etc), monnaie sous contrôle des banques et des industries polluantes et émettrices de CO2, décisions politiques centralisées hors de nos frontières et de notre contrôle, etc."),
     ]
     commentaires = Message.objects.filter(type_article="1").order_by("date_creation")
     form = MessageForm(request.POST or None)

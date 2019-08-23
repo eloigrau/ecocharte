@@ -66,6 +66,7 @@ INSTALLED_APPS = (
     'leaflet',
     'captcha',
     'django_summernote',
+    "visits",
 )
 
 
@@ -79,6 +80,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
      'django.middleware.locale.LocaleMiddleware',
+    "visits.middleware.BotVisitorMiddleware",
+     "visits.middleware.CounterMiddleware",
 ]
 
 
@@ -201,16 +204,25 @@ BASE_URL = "https://ecocharte.herokuapp.com"
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+#STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+#STATIC_URL = '/static/'
+
+#if LOCALL:
+#    STATICFILES_DIRS = (os.path.normpath(os.path.join(BASE_DIR, 'staticfiles/')), )
+##    STATIC_ROOT = os.path.normpath(os.path.join(BASE_DIR, 'static/'))
+
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
+
+PROJECT_ROOT2 = os.path.dirname(os.path.abspath(__file__))
 
 # Extra places for collectstatic to find static files.
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'), os.path.join(BASE_DIR, 'ecocharte/static'), os.path.join(BASE_DIR, '../ecocharte/static'),
+    os.path.join(PROJECT_ROOT2, 'static'),
 )
-if LOCALL:
-    STATICFILES_DIRS = (os.path.normpath(os.path.join(BASE_DIR, 'staticfiles/')), )
-    STATIC_ROOT = os.path.normpath(os.path.join(BASE_DIR, 'static/'))
+
+
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.normpath(os.path.join(BASE_DIR, '/media/'))
@@ -349,11 +361,12 @@ SUMMERNOTE_CONFIG = {
 #    import django_heroku
 #    django_heroku.settings(locals())
 
-SECURE_HSTS_SECONDS = 518400
-SECURE_CONTENT_TYPE_NOSNIFF = True
-SECURE_BROWSER_XSS_FILTER = True
-SECURE_SSL_REDIRECT  = True
-SESSION_COOKIE_SECURE  = True
-CSRF_COOKIE_SECURE = True
-X_FRAME_OPTIONS = 'DENY'
-SESSION_EXPIRE_AT_BROWSER_CLOSE=True
+if not LOCALL:
+    SECURE_HSTS_SECONDS = 518400
+    SECURE_CONTENT_TYPE_NOSNIFF = True
+    SECURE_BROWSER_XSS_FILTER = True
+    SECURE_SSL_REDIRECT  = True
+    SESSION_COOKIE_SECURE  = True
+    CSRF_COOKIE_SECURE = True
+    X_FRAME_OPTIONS = 'DENY'
+    SESSION_EXPIRE_AT_BROWSER_CLOSE=True
