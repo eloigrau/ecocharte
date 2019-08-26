@@ -190,12 +190,12 @@
 {% get_visits request.path as visits %}
     <footer class="site-footer text-center ">
         <small>
-          <!-- Start of CuterCounter Code -->
-<a href="https://www.cutercounter.com/" target="_blank"><img src="https://www.cutercounter.com/hits.php?id=gruqpkkd&nd=6&style=11" border="0" alt="free counter"></a> |
-<!-- End of CuterCounter Code -->
+  {% block compteur %}
+  {% endblock %}
          {% if request.user.is_superuser %}
             {{visits}} |
-          {%endif%} <script>document.write(new Date().getFullYear());</script> </small>
+          {%endif%} <script>document.write(new Date().getFullYear());</script>
+        </small>
     </footer>
 {% comment %}
     <footer class="site-footer">

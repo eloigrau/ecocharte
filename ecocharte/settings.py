@@ -29,7 +29,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: don't run with debug turned on in production!
 try:
     LOCALL = False
-    DEBUG = True
+    DEBUG = False
     SECRET_KEY = os.environ['SECRET_KEY']
     ALLOWED_HOSTS = ['ecocharte.herokuapp.com']
 except:
@@ -117,13 +117,10 @@ if LOCALL:
             'NAME': os.path.join(BASE_DIR, 'db.db'),
         }
     }
-    ALLOWED_HOSTS = ['127.0.0.1']
 else:
     DATABASES = dict()
     DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
 
-
-# except:
 
 
 AUTH_PASSWORD_VALIDATORS = [
@@ -211,8 +208,8 @@ BASE_URL = "https://ecocharte.herokuapp.com"
 ##    STATIC_ROOT = os.path.normpath(os.path.join(BASE_DIR, 'static/'))
 
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-STATIC_URL = '/staticfiles/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_URL = '/static/'
 
 PROJECT_ROOT2 = os.path.dirname(os.path.abspath(__file__))
 
