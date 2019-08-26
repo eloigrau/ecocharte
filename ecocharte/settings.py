@@ -80,8 +80,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
      'django.middleware.locale.LocaleMiddleware',
-    "visits.middleware.BotVisitorMiddleware",
-     "visits.middleware.CounterMiddleware",
+    #"visits.middleware.BotVisitorMiddleware",
+     #"visits.middleware.CounterMiddleware",
 ]
 
 

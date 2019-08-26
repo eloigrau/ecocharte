@@ -4,7 +4,6 @@
 {% load l10n %}
 {% load fontawesome %}
 {% load app_filters %}
-{% load visits_tags %}
 {%block header_document %}
 {%endblock%}
 {% spaceless %}
@@ -187,14 +186,13 @@
   {% endblock %}
 
 
-{% get_visits request.path as visits %}
     <footer class="site-footer text-center ">
         <small>
   {% block compteur %}
   {% endblock %}
          {% if request.user.is_superuser %}
-            {{visits}} |
-          {%endif%} <script>document.write(new Date().getFullYear());</script>
+          {%endif%}
+            <script>document.write(new Date().getFullYear());</script>
         </small>
     </footer>
 {% comment %}
