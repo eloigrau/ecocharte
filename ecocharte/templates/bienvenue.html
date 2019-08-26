@@ -121,7 +121,14 @@
 
         <div class="row" data-aos="fade-up" data-aos-delay="200">
           <div class="col-12 text-center pt-5">
+              {% if request.user.is_authenticated %}
+            <button type="button" class="btn btn-lg btn-success" disabled data-aos="fade-up" data-aos-delay="400">
+                Vous êtes déjà membre du collectif
+            </button>
+
+              {%else%}
             <a href="{% url 'senregistrer' %}" class="btn-custom" data-aos="fade-up" data-aos-delay="400"><span>Je vous rejoins !</span></a>
+              {% endif %}
           </div>
         </div>
       </div>

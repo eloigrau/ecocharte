@@ -17,14 +17,18 @@
         <div class="row mb-5 justify-content-center">
           <div class="col-lg-10 mb-5">
             <div class="site-section-heading" data-aos="fade-up">
+{% if user == request.user %}
                 <h2 class="text-center">Mon profil </h2>
+{% else %}
+                <h2 class="text-center">Profil de {{ user.username }}</h2>
+{% endif %}
             </div>
           </div>
         </div>
         <div class="row-sm-12" data-aos="fade-up" data-aos-delay="500">
           <div class="col-md-12" data-aos="fade-up" data-aos-delay="500">
 
-
+{% if user == request.user %}
 <div class="row justify-content-center">
   <div class="col-sm-12 col-md-10 mb-5 text-center">
           {%if request.user.a_signe %}
@@ -36,7 +40,24 @@
                  je n'approuve pas la charte et je n'ai pas encore signé
   </button></a>
           {%endif%}
-  </div></div>
+  </div>
+</div>
+{% else %}
+<div class="row justify-content-center">
+  <div class="col-sm-12 col-md-10 mb-5 text-center">
+          {%if user.a_signe %}
+            <button type="button" class="btn btn-lg btn-success" disabled>
+                a signé et approuve la charte
+            </button>
+          {%else%}
+            <a href="#"><button type="button" class="btn btn-lg btn-warning" >
+                n'a pas encore signé la charte
+  </button></a>
+          {%endif%}
+  </div>
+</div>
+{% endif %}
+
 <div class="row justify-content-center">
   <div class="col-sm-12 col-md-10">
       {%if request.user == user %}

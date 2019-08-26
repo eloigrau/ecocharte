@@ -1,9 +1,16 @@
 from django import forms
+from django.core.validators import RegexValidator
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from .models import Adresse, Profil, Message, Choix
 from captcha.fields import CaptchaField
 from django_summernote.widgets import SummernoteWidget, SummernoteInplaceWidget
 
+no_space_validator = RegexValidator(
+      r' ',
+      ("Le pseudonyme ne doit pas contenir d'espaces"),
+      inverse_match=True,
+      code='invalid_tag',
+  )
 
 class AdresseForm(forms.ModelForm):
     code_postal = forms.CharField(label="Code postal*", )
@@ -22,7 +29,7 @@ class AdresseForm(forms.ModelForm):
         return adresse
 
 class ProfilCreationForm(UserCreationForm):
-    username = forms.CharField(label="Pseudonyme*", help_text="Attention les majuscules sont importantes...")
+    username = forms.CharField(label="Pseudonyme*", help_text="Attention les majuscules sont importantes...", validators=[no_space_validator,])
     description = forms.CharField(label=None, help_text="Une description de vous même", required=False, widget=forms.Textarea)
     captcha = CaptchaField()
     email= forms.EmailField(label="Email*",)
@@ -46,7 +53,7 @@ class ProfilChangeForm(UserChangeForm):
     password hash display field.
     """
     email = forms.EmailField(label="Email")
-    username = forms.CharField(label="Pseudonyme")
+    username = forms.CharField(label="Pseudonyme", validators=[no_space_validator,])
     description = forms.CharField(label="Description", help_text="Une description de vous-même", required=False)
     inscrit_newsletter = forms.BooleanField(required=False, label="J'accepte de recevoir des emails")
     accepter_annuaire = forms.BooleanField(required=False, label="J'accepte d'apparaitre dans l'annuaire du site et la carte et rend mon profil visible par tous")
@@ -63,7 +70,7 @@ class ProfilChangeForm_admin(UserChangeForm):
     password hash display field.
     """
     email = forms.EmailField(label="Email")
-    username = forms.CharField(label="Pseudonyme")
+    username = forms.CharField(label="Pseudonyme", validators=[no_space_validator,])
     description = forms.CharField(label="Description", initial="Une description de vous même (facultatif)", widget=forms.Textarea)
     inscrit_newsletter = forms.BooleanField(required=False)
     accepter_annuaire = forms.BooleanField(required=False)

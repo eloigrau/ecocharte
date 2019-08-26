@@ -200,6 +200,10 @@ def statistiques(request):
     nb_inscrits = Profil.objects.all().count()
     return render(request, 'statistiques.html', {"nb_inscrits":nb_inscrits})
 
+def signataires(request):
+    signataires = Profil.objects.filter(a_signe=True)
+    return render(request, 'signataires.html', {"signataires":signataires})
+
 def liens(request):
     liens = [
         'https://jancovici.com/',
