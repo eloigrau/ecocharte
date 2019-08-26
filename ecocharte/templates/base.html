@@ -135,11 +135,14 @@
         <div class="row mb-5">
           <div class="col-md-12">
 
-<div class="row textcenter">
+<div class="row text-center">
     <h4>Commentaires</h4>
 </div>
+<div class="row text-center">
+    <p><small>Une remarque ? une suggestion ? Vous n'êtes pas d'accord ? N'hésitez pas à donner votre avis ci-dessous...</small></p>
+</div>
 
-<div class="site-comment commentaires" id="idConversation">
+<div class=" commentaires" id="idConversation">
 {% for comment in commentaires %}
     <div class="row {% if comment.auteur.id == request.user.id %} msg-auteur  {%else%} msg-destinataire{%endif%}">
 
@@ -179,6 +182,7 @@
         </div>
       </div>
 </div>
+  </div>
 
   {% endblock %}
 
@@ -186,10 +190,11 @@
 {% get_visits request.path as visits %}
     <footer class="site-footer text-center ">
         <small>
-         {% if request.user.is_superuser %}{{visits}}| 
           <!-- Start of CuterCounter Code -->
-<a href="https://www.cutercounter.com/" target="_blank"><img src="https://www.cutercounter.com/hits.php?id=gruqpkkd&nd=6&style=11" border="0" alt="free counter"></a>
+<a href="https://www.cutercounter.com/" target="_blank"><img src="https://www.cutercounter.com/hits.php?id=gruqpkkd&nd=6&style=11" border="0" alt="free counter"></a> |
 <!-- End of CuterCounter Code -->
+         {% if request.user.is_superuser %}
+            {{visits}} |
           {%endif%} <script>document.write(new Date().getFullYear());</script> </small>
     </footer>
 {% comment %}
@@ -232,7 +237,6 @@
     </footer>
 
 {% endcomment %}
-  </div>
 
   <script src="{% static 'js/jquery-3.3.1.min.js'%}"></script>
   <script src="{% static 'js/jquery-migrate-3.0.1.min.js'%}"></script>
