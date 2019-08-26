@@ -176,7 +176,7 @@ IGNORABLE_404_URLS = (
 )
 
 # Email settings
-SERVER_EMAIL = 'ecocharte.cat@gmail.com'
+SERVER_EMAIL = 'ecocharte.cat'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 try:
