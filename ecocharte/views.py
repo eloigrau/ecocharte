@@ -57,9 +57,6 @@ def presentation_site(request):
 def merci(request):
     return render(request, 'merci.html')
 
-def gallerie(request):
-    return render(request, 'gallerie.html')
-
 def faq(request):
     return render(request, 'faq.html')
 
@@ -196,14 +193,18 @@ def cgu(request):
 def fairedon(request):
     return render(request, 'fairedon.html', )
 
+@login_required
 def statistiques(request):
     nb_inscrits = Profil.objects.all().count()
     return render(request, 'statistiques.html', {"nb_inscrits":nb_inscrits})
 
+
+@login_required
 def signataires(request):
     signataires = Profil.objects.filter(a_signe=True, accepter_annuaire=True)
-    nb_total = Profil.objects.filter(a_signe=True,).count()
-    return render(request, 'signataires.html', {"signataires":signataires, "nb_total":nb_total})
+    nb_total_signe = Profil.objects.filter(a_signe=True,).count()
+    nb_total = Profil.objects.all().count()
+    return render(request, 'signataires.html', {"signataires":signataires, "nb_total_signe":nb_total_signe, "nb_total":nb_total})
 
 def liens(request):
     liens = [
