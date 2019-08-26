@@ -226,7 +226,7 @@ STATICFILES_DIRS = [os.path.join(APPS_DIR, 'static_files')]
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.normpath(os.path.join(BASE_DIR, '/media/'))
 
-STATICFILES_STORAGE = 'whitenoise.storage.GzipManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # LOCATION_FIELD = {
 #     'map.provider': 'openstreetmap',
