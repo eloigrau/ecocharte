@@ -71,7 +71,7 @@ def statuts(request):
 @sensitive_variables('user', 'password1', 'password2')
 def register(request):
     if request.user.is_authenticated:
-        return render(request, "erreur.html", {"msg": "Vous etes déjà inscrit et authentifié !"})
+        return render(request, "erreur.html", {"msg": "Vous êtes déjà inscrit et connecté !"})
 
     form_adresse = AdresseForm(request.POST or None)
     form_profil = ProfilCreationForm(request.POST or None)
