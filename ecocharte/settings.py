@@ -174,9 +174,8 @@ IGNORABLE_404_URLS = (
     re.compile('^/favicon\.ico$'),
     re.compile('^/robots\.txt$'),
 )
-
 # Email settings
-SERVER_EMAIL = 'ecocharte.cat'
+SERVER_EMAIL = 'ecocharte.cat@gmail.com'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 try:
@@ -188,14 +187,14 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 GMAIL_SMTP_USER = 'ecocharte.cat@gmail.com'
-EMAIL_SUBJECT_PREFIX = "[EcoCharte]"
+EMAIL_SUBJECT_PREFIX = "[ecocharte.cat]"
 try:
     GMAIL_SMTP_PASSWORD = os.environ['EMAIL_ADMIN_PWD']
 except:
     GMAIL_SMTP_PASSWORD = 'test'
 
 ADMINS = (
-    ('admin', 'ecocharte.cat@gmail.com'),
+    ('Asso_admin', 'ecocharte.cat@gmail.com'),
 )
 MANAGERS = ADMINS
 BASE_URL = "https://ecocharte.herokuapp.com"
