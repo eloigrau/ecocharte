@@ -57,16 +57,16 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.admindocs',
     'django.contrib.sites',
+    'ecocharte',
     'bootstrap','fontawesome','cookielaw',
     'model_utils',
-    'ecocharte',
     'django_extensions',
     'django_filters',
     'widget_tweaks',
     'leaflet',
     'captcha',
-    'django_summernote',
-    "visits",
+   # 'django_summernote',
+   # "visits",
 )
 
 
@@ -218,9 +218,9 @@ APPS_DIR = os.path.dirname(os.path.abspath(__file__))
 #    os.path.join(APPS_DIR, 'static'),
 #)
 
-STATIC_URL = '/static_root/'
-STATIC_ROOT = os.path.join(APPS_DIR, "static_root/")
-STATICFILES_DIRS = [os.path.join(APPS_DIR, 'static')]
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(APPS_DIR, "static/")
+STATICFILES_DIRS = [os.path.join(APPS_DIR, 'static_files')]
 
 
 MEDIA_URL = '/media/'
