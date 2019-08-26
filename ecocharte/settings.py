@@ -208,16 +208,19 @@ BASE_URL = "https://ecocharte.herokuapp.com"
 ##    STATIC_ROOT = os.path.normpath(os.path.join(BASE_DIR, 'static/'))
 
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATIC_URL = '/static/'
+#STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+#STATIC_URL = '/static/'
 
-PROJECT_ROOT2 = os.path.dirname(os.path.abspath(__file__))
+APPS_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # Extra places for collectstatic to find static files.
 ##STATICFILES_DIRS = (
-#    os.path.join(PROJECT_ROOT2, 'static'),
+#    os.path.join(APPS_DIR, 'static'),
 #)
 
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(APPS_DIR, "static/")
+STATICFILES_DIRS = [os.path.join(APPS_DIR, 'static')]
 
 
 MEDIA_URL = '/media/'
