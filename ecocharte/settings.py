@@ -218,8 +218,8 @@ APPS_DIR = os.path.dirname(os.path.abspath(__file__))
 #    os.path.join(APPS_DIR, 'static'),
 #)
 
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(APPS_DIR, "static/")
+STATIC_URL = '/static_root/'
+STATIC_ROOT = os.path.join(APPS_DIR, "static_root/")
 STATICFILES_DIRS = [os.path.join(APPS_DIR, 'static')]
 
 
