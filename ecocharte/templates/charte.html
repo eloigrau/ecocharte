@@ -53,7 +53,8 @@
               <ul>
 {% for point in domaine.1 %}
 
-                  <p><a id="{{point.slug}}">                  </a>{{ forloop.counter }}. {{point|safe}}
+                  <p><a id="{{point.slug}}">                  </a>{{ forloop.counter }}. {{point|safe}}</p>
+                      <p class="text-right">
       <a href="{% url 'ajouterVote_plus' point.slug %}?next={%url 'charte'%}#{{domaine.0.slug}}"> {% fontawesome_icon 'thumbs-up' %} {{point.compteur_plus}}</a> &nbsp
       <a href="{% url 'ajouterVote_moins' point.slug %}?next={%url 'charte'%}#{{domaine.0.slug}}" >{% fontawesome_icon 'thumbs-down' %} {{point.compteur_moins}} </a> &nbsp
       <a href="{{point.get_absolute_url}}" > {% fontawesome_icon 'comments' %} </a>
