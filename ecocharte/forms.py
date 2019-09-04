@@ -1,7 +1,7 @@
 from django import forms
 from django.core.validators import RegexValidator
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
-from .models import Adresse, Profil, Message, Choix
+from .models import Adresse, Profil, Message, Choix, Commentaire_charte
 from captcha.fields import CaptchaField
 from django_summernote.widgets import SummernoteWidget, SummernoteInplaceWidget
 
@@ -107,6 +107,23 @@ class MessageForm(forms.ModelForm):
         if message:
            self.fields['message'].initial = message
 
+
+
+class CommentaireForm(forms.ModelForm):
+    message = forms.CharField(max_length=500, label="Laisser un commentaire...",)
+
+    class Meta:
+        model = Commentaire_charte
+        exclude = ['auteur', 'date_creation', 'type_message', 'valide', 'proposition']
+
+        widgets = {
+                'message': forms.Textarea(attrs={'rows': 2}),
+            }
+
+    def __init__(self, request, message=None, *args, **kwargs):
+        super(CommentaireForm, self).__init__(request, *args, **kwargs)
+        if message:
+           self.fields['message'].initial = message
 
 
 class SignerForm(forms.Form):

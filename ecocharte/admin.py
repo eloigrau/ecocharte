@@ -6,7 +6,7 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 
 from .forms import ProfilCreationForm, ProfilChangeForm_admin
-from .models import Profil
+from .models import Profil, Commentaire_charte, Proposition_charte, Domaine_charte
 from django.utils.translation import gettext_lazy as _
 
 
@@ -31,3 +31,6 @@ admin.site.register(Profil, CustomUserAdmin)
 
 admin.site.register(Adresse)
 admin.site.register(Message)
+admin.site.register(Domaine_charte)
+admin.site.register(Proposition_charte)
+admin.site.register(Commentaire_charte)

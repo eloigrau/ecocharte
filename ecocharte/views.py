@@ -9,9 +9,11 @@ from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import Group, User
 from django.core.mail import mail_admins, send_mail, BadHeaderError
-from .forms import ProfilCreationForm, ContactForm, AdresseForm, SignerForm, ProfilChangeForm, MessageForm
-from .models import Profil, Adresse, Message
+from .forms import ProfilCreationForm, ContactForm, AdresseForm, SignerForm, ProfilChangeForm, MessageForm,CommentaireForm
+from .models import Profil, Adresse, Message, Domaine_charte, Proposition_charte, Commentaire_charte, Vote
 from django.views.generic import ListView, UpdateView, DeleteView
+from django.db.models import F
+from django.http import HttpResponse
 
 CharField.register_lookup(Lower, "lower")
 
@@ -309,64 +311,66 @@ def preconisations(request):
 
     return render(request, '3_preconisations.html', {"dico_risques":dico_risques, 'form': form, 'commentaires': commentaires})
 
+
+dico_charte =[
+    ("Promouvoir l'agriculture",
+  ("Aider à la création de fermes agro-ecologiques",
+   "Interdire tous les pesticides dans la commune",
+   "Replanter les haies et créer des espaces arborés",
+   "Que les cantines scolaires soient fournies de plus en plus par l'agriculture locale biologique ou permacole",
+   "Faire un jardin potager au sein des établissements scolaires en lien avec les maraichers locaux",
+   "Favoriser l'agriculture biologique et la permaculture dans ma commune",
+   "Soutenir ou aider à la création de jardins partagés, ou jardins familiaux",
+   "Soutenir ou aider à la création de coopératives agricoles",
+  ),),
+
+  ("Préserver les ressources",
+   (" Limiter l'usage de l'eau au strict minimum",
+    " Penser les transports du futur pour économiser l'energie: <ol><li> mobilité douce (vélo, traction animale, bateaux),</li><li>transports en commun (bus, taxi collectifs, espaces dédiés au covoiturage au sein de la commune, etc).</li><li>nouvelles technologies : bornes de rechargement pour les véhicules électriques, à partir d'énergie renouvelable et locale. Usine d'hydrogène, centrales solaires (thermiques et électriques), etc.</li></ol>",
+    " Encourager la création d'une filière bois/énergie locale et durable",
+    " Encourager la création d'une filière solaire et d'énergies renouvelables locale et durable",
+    " Arrêter toute artificialisation des terres (n'accepter aucun nouveaux projet de construction qui ne soit pas vraiment eco-responsable)"
+    ),),
+
+ ("Développer l'économie locale en tenant compte de l'environnement en priorité",
+  (" Préserver et valoriser notre patrimoine culturel, foncier et historique",
+   " Aider au déploiement des monnaies alternatives",
+   " Participer à la création de filières locales, en créant de l'économie circulaire",
+   " Aider à la création de syndicats et coopératives agricoles citoyennes",
+   " Créer une caisse de solidarité pour indemniser les victimes des futures catastrophes naturelles (pourquoi pas en monnaie alternative ?)",
+   " Encourager le tourisme éco-responsable, et limiter les activités touristiques polluantes ou consommatrices  d'eau (golf, piscine privées, etc)",
+   ),),
+
+ ("Urbaniser intelligemment",
+ (" préserver notre identité paysagère, respecter notre patrimoine architectural",
+  " Végétaliser, reboiser, replanter les haies", "préserver les canaux d'arrosage",
+  " Intégrer les activités agricoles dans la vie des villes et villages",
+  " Utiliser des espaces pour organiser des lieux de vie et des assemblées collectifs",
+  " Contrôler le foncier en n'oubliant pas d'intégrer les logements sociaux aux activités économiques",
+  " Limiter l'étalement urbain", " favoriser les habitats légers, ou eco-responsables", "aménager des voies cyclables et de covoiturage",
+  " Laisser de la place pour la faune et la flore sauvage",
+  " Prendre soin des cours d'eau, et des canaux d'irrigation"),
+  ),
+  ("Contrôler la démographie ",
+  ( " Limiter le tourisme de masse à basse valeur ajoutée en imposant des normes écologiques (par exemple taxer les ordures au delà d'un certain seuil, ou imposer un 'visa touristique' qui permette de traiter les dégats écologiques du tourisme)",
+    " Contrôler le foncier",
+    " Densifier les zones d'habitat",
+    " Intégrer les nouveaux arrivants en les sensibilisant aux questions écologiques, politiques, économiques et identitaire.",
+    " Inclure les personnes âgées dans les activités de la commune, notamment pour animer les assemblées locales.",
+    " Accueillir dignement les migrants, du nord ou du sud, en les faisant participer à la vie des communes, notammant dans les activités des fermes agro-écologiques", ),
+   ),
+ ("Respecter notre identité et encourager la  citoyenneté",
+ ("Adopter la signalétique de la commune (nom des voies, monuments, affiches, etc) en catalan",
+  "Respecter les traditions séculaires catalanes",
+  "Favoriser le bilinguisme au sein des établissements scolaires",
+  "Favoriser le bilinguisme au sein de la mairie et des actes publics",
+  "Créer des assemblées locales citoyennes pour informer et débattre autour des enjeux du changement climatique et de la fin du pétrole.",
+  "Proposer des salles pour développer le domaine associatif local",
+  "Créer du lien et de la solidarité entre catalans (habitants et sympathisants du Pays Catalan)",
+  ),)
+]
+
 def charte(request):
-    dico_charte =[
-        ("1) Promouvoir l'agriculture ",
-      ("Aider à la création de fermes agro-ecologiques",
-       "Interdire tous les pesticides dans la commune",
-       "Replanter les haies et créer des espaces arborés",
-       "Que les cantines scolaires soient fournies de plus en plus par l'agriculture locale biologique ou permacole",
-       "Faire un jardin potager au sein des établissement scolaires en lien avec les maraichers locaux",
-       "Favoriser l'agriculture biologique et la permaculture dans ma commune",
-       "Soutenir ou aider à la création de jardins partagés, ou jardins familiaux",
-       "Soutenir ou aider à la création de coopératives agricoles",
-      ),),
-
-      ("2) Préserver les ressources",
-       (" Limiter l'usage de l'eau au strict minimum",
-        " Penser les transports du futur pour économiser l'energie: <ol><li> mobilité douce (vélo, charrettes, bateaux),</li><li>transports en commun (bus, taxi collectifs, espaces dédiés au covoiturage au sein de la commune, etc).</li><li>nouvelles technologies : bornes de rechargement pour les véhicules électriques, à partir d'énergie renouvelable et locale. Usine d'hydrogène, centrales solaires (thermiques et électriques), etc.</li></ol>",
-        " Encourager la création d'une filière bois/énergie locale et durable",
-        " Encourager la création d'une filière solaire et d'énergies renouvelables locale et durable",
-        " Arrêter toute artificialisation des terres (n'accepter aucun nouveaux projet de construction qui ne soit pas vraiment eco-responsable)"
-        ),),
-
-     ("3) Développer l'économie locale en tenant compte de l'environnement en priorité",
-      (" Préserver et valoriser notre patrimoine culturel, foncier et historique",
-       " Aider au déploiement des monnaies alternatives",
-       " Participer à la création de filières locales, en créant de l'économie circulaire",
-       " Aider à la création de syndicats et coopératives agricoles citoyennes",
-       " Créer une caisse de solidarité pour indemniser les victimes des futures catastrophes naturelles (pourquoi pas en monnaie alternative ?)",
-       " Encourager le tourisme éco-responsable, et limiter les activités touristiques polluantes ou consommatrices  d'eau (golf, piscine privées, etc)",
-       ),),
-
-     ("4) Urbaniser intelligemment",
-     (" préserver notre identité paysagère, respecter notre patrimoine architectural",
-      " Végétaliser, reboiser, replanter les haies", "préserver les canaux d'arrosage",
-      " Intégrer les activités agricoles dans la vie des villes et villages",
-      " Utiliser des espaces pour organiser des lieux de vie et des assemblées collectifs",
-      " Contrôler le foncier en n'oubliant pas d'intégrer les logements sociaux aux activités économiques",
-      " Limiter l'étalement urbain", " favoriser les habitats légers, ou eco-responsables", "aménager des voies cyclables et de covoiturage",
-      " Laisser de la place pour la faune et la flore sauvage",
-      " Prendre soin des cours d'eau, et des canaux d'irrigation"),
-      ),
-      ("5) Contrôler la démographie ",
-      ( " Limiter le tourisme de masse à basse valeur ajoutée en imposant des normes écologiques (par exemple taxer les ordures au delà d'un certain seuil, ou imposer un 'visa touristique' qui permette de traiter les dégats écologiques du tourisme)",
-        " Contrôler le foncier",
-        " Densifier les zones d'habitat",
-        " Intégrer les nouveaux arrivants en les sensibilisant aux questions écologiques, politiques, économiques et identitaire.",
-        " Inclure les personnes âgées dans les activités de la commune, notamment pour animer les assemblées locales.",
-        " Accueillir dignement les migrants, du nord ou du sud, en les faisant participer à la vie des communes, notammant dans les activités des fermes agro-écologiques", ),
-       ),
-     ("6) Respecter notre identité et encourager la  citoyenneté ",
-     ("Adopter la signalétique de la commune (nom des voies, monuments, affiches, etc) en catalan",
-      "Respecter les traditions séculaires catalanes",
-      "Favoriser le bilinguisme au sein des établissements scolaires",
-      "Favoriser le bilinguisme au sein de la mairie et des actes publics",
-      "Créer des assemblées locales citoyennes pour informer et débattre autour des enjeux du changement climatique et de la fin du pétrole.",
-      "Proposer des salles pour développer le domaine associatif local",
-      "Créer du lien et de la solidarité entre catalans (habitants et sympathisants du Pays Catalan)",
-      ),)
-    ]
     commentaires = Message.objects.filter(type_article="3").order_by("date_creation")
     form = MessageForm(request.POST or None)
     if form.is_valid():
@@ -377,7 +381,7 @@ def charte(request):
         comment.type_article="3"
         comment.save()
         return redirect(request.path)
-
+    dico_charte = ((domaine, (prop for prop in Proposition_charte.objects.filter(domaine=domaine))) for domaine in Domaine_charte.objects.all())
     return render(request, 'charte.html', {"dico_charte":dico_charte, 'form': form, 'commentaires': commentaires})
 
 
@@ -415,3 +419,68 @@ def signer(request):
         return render(request, 'merci.html')
 
     return render(request, 'signer.html', {"form_signer": form_signer, })
+
+
+def ajouterPointsCharte(request):
+    for domaine in dico_charte:
+        domaine_obj, created = Domaine_charte.objects.get_or_create(titre=domaine[0])
+        for message in domaine[1]:
+            proposition, created = Proposition_charte.objects.get_or_create(titre=message, domaine=domaine_obj)
+    return render(request, 'merci.html')
+
+def voirPropositionCharte(request, slug):
+    proposition = Proposition_charte.objects.get(slug=slug)
+    commentaires = Commentaire_charte.objects.filter(proposition=proposition)
+    if request.user.is_authenticated:
+        vote, created = Vote.objects.get_or_create(auteur=request.user, proposition=proposition)
+    else:
+        vote = None
+    form = CommentaireForm(request.POST or None)
+    if form.is_valid():
+        if not request.user.is_authenticated:
+            return redirect('login')
+        comment = form.save(commit=False)
+        comment.auteur = request.user
+        comment.proposition = proposition
+        comment.save()
+        return redirect(request.path)
+    return render(request, 'voir_pointcharte.html', {'form': form, 'proposition':proposition, 'commentaires':commentaires, 'vote':vote})
+
+def ajouterVote_plus(request, slug):
+    if not request.user.is_authenticated:
+        return redirect('login')
+    proposition = Proposition_charte.objects.get(slug=slug)
+    vote, created = Vote.objects.get_or_create(auteur=request.user, proposition=proposition)
+    if vote.type_vote == "0" :
+        vote.type_vote = "1"
+        proposition.compteur_plus=proposition.compteur_plus + 1
+    elif vote.type_vote == "1":
+        vote.type_vote = "0"
+        proposition.compteur_plus=proposition.compteur_plus - 1
+    elif vote.type_vote == "2":
+        vote.type_vote = "1"
+        proposition.compteur_plus=proposition.compteur_plus + 1
+        proposition.compteur_moins=proposition.compteur_moins - 1
+    proposition.save()
+    vote.save()
+    return redirect(request.GET['next'])
+
+
+def ajouterVote_moins(request, slug):
+    if not request.user.is_authenticated:
+        return redirect('login')
+    proposition = Proposition_charte.objects.get(slug=slug)
+    vote, created = Vote.objects.get_or_create(auteur=request.user, proposition=proposition)
+    if vote.type_vote == "0":
+        vote.type_vote = "2"
+        proposition.compteur_moins=proposition.compteur_moins + 1
+    elif vote.type_vote == "1":
+        vote.type_vote = "2"
+        proposition.compteur_plus=proposition.compteur_plus - 1
+        proposition.compteur_moins=proposition.compteur_moins + 1
+    elif vote.type_vote == "2":
+        vote.type_vote = "0"
+        proposition.compteur_moins=proposition.compteur_moins- 1
+    proposition.save()
+    vote.save()
+    return redirect(request.GET['next'])

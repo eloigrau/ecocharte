@@ -61,6 +61,12 @@ urlpatterns = [
     url(r'^liens/$', views.liens, name='liens', ),
     url(r'^fairedon/$', views.fairedon, name='fairedon', ),
     url(r'^contact_admins/$', views.contact_admins, name='contact_admins',),
+
+    url(r'^ajouterPointsCharte/$', views.ajouterPointsCharte, name='ajouterPointsCharte', ),
+    url(r'^voirPropositionCharte/(?P<slug>[-\w]+)$', views.voirPropositionCharte, name='voirPropositionCharte', ),
+    url(r'^ajouterVote_plus/(?P<slug>[-\w]+)$', views.ajouterVote_plus, name='ajouterVote_plus', ),
+    url(r'^ajouterVote_moins/(?P<slug>[-\w]+)$', views.ajouterVote_moins, name='ajouterVote_moins', ),
+
 ]
 urlpatterns += [
     url(r'^robots\.txt$', TemplateView.as_view(template_name="ecocharte/robots.txt", content_type='text/plain')),

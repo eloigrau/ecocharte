@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load fontawesome %}
 {% block content %}
 
  <div class="site-section">
@@ -25,23 +26,38 @@
         <div class="row mb-5 justify-content-center">
           <div class="col-sm-12 mb-5">
             <div class="site-section-heading" data-aos="fade-up">
-              <h3 class="text-center">{{domaine.0}}</h3>
+              <h3 class="text-center" id="{{domaine.0.slug}}">{{ forloop.counter }}) {{domaine.0|safe}}</h3>
             </div>
           </div>
         </div>
-{% comment %}
 
-        <div class="row mb-5 justify-content-center">
-          <div class="col-12" data-aos="fade-up" data-aos-delay="300">
-            <!--img src="images/hero_1.jpg" alt="Image" class="img-fluid"-->
-          </div>
-        </div>
+{% comment %}
+        <div class="row justify-content-center">
+          <div class="col-sm-12" data-aos="fade-up" data-aos-delay="400">
+           <table border="0">
+{% for point in domaine.1 %}
+    <th id="{{point.slug}}"> {{ forloop.counter }}. {{point|safe}}</th>
+    <th width="15%">
+      <a href="{% url 'ajouterVote_plus' point.slug %}?next={%url 'charte'%}#{{domaine.0.slug}}"> {% fontawesome_icon 'thumbs-up' %} {{point.compteur_plus}}</a> &nbsp
+      <a href="{% url 'ajouterVote_moins' point.slug %}?next={%url 'charte'%}#{{domaine.0.slug}}" >{% fontawesome_icon 'thumbs-down' %} {{point.compteur_moins}} </a> &nbsp
+      <a href="{{point.get_absolute_url}}" > {% fontawesome_icon 'comments' %} </a>
+    </th>
+  </tr>
+{% endfor%}
+</table>
+          </div></div>
+
 {% endcomment %}
         <div class="row justify-content-center">
-          <div class="col-sm-12 col-md-10 col-lg-8" data-aos="fade-up" data-aos-delay="400">
+          <div class="col-sm-12 col-lg-10" data-aos="fade-up" data-aos-delay="400">
               <ul>
 {% for point in domaine.1 %}
-                  <li>{{point|safe}}</li>
+
+                  <p><a id="{{point.slug}}">                  </a>{{ forloop.counter }}. {{point|safe}}
+      <a href="{% url 'ajouterVote_plus' point.slug %}?next={%url 'charte'%}#{{domaine.0.slug}}"> {% fontawesome_icon 'thumbs-up' %} {{point.compteur_plus}}</a> &nbsp
+      <a href="{% url 'ajouterVote_moins' point.slug %}?next={%url 'charte'%}#{{domaine.0.slug}}" >{% fontawesome_icon 'thumbs-down' %} {{point.compteur_moins}} </a> &nbsp
+      <a href="{{point.get_absolute_url}}" > {% fontawesome_icon 'comments' %} </a>
+                      </p>
               {%endfor%}
               </ul>
           </div>
