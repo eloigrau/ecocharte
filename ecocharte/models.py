@@ -137,7 +137,7 @@ class Domaine_charte(models.Model):
     slug = models.SlugField(max_length=100)
 
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.titre)
+        self.slug = slugify(self.titre)[:99]
         super(Domaine_charte, self).save(*args, **kwargs)
 
     def __str__(self):
@@ -152,7 +152,7 @@ class Proposition_charte(models.Model):
     slug = models.SlugField(max_length=100)
 
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.titre)
+        self.slug = slugify(self.titre)[:99]
         super(Proposition_charte, self).save(*args, **kwargs)
 
     def __str__(self):
