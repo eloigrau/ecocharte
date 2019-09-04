@@ -174,13 +174,6 @@ class Commentaire_charte(models.Model):
     def __str__(self):
         return self.message
 
-class References_charte(models.Model):
-    proposition = models.ForeignKey(Proposition_charte, on_delete=models.CASCADE)
-    message = models.TextField(null=False, blank=True,)
-
-    def __str__(self):
-        return self.message
-
 class Vote(models.Model):
     proposition = models.ForeignKey(Proposition_charte, on_delete=models.CASCADE)
     auteur = models.ForeignKey(Profil, on_delete=models.CASCADE)
