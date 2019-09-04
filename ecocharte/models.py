@@ -134,7 +134,7 @@ class Message(models.Model):
 
 class Domaine_charte(models.Model):
     titre = models.TextField(null=False, blank=False)
-    slug = models.SlugField()
+    slug = models.SlugField(max_length=100)
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.titre)
@@ -149,7 +149,7 @@ class Proposition_charte(models.Model):
     explication = models.TextField(blank=True)
     compteur_plus = models.IntegerField(default=0)
     compteur_moins = models.IntegerField(default=0)
-    slug = models.SlugField()
+    slug = models.SlugField(max_length=100)
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.titre)
