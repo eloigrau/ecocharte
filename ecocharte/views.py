@@ -382,7 +382,7 @@ def charte(request):
         comment.type_article="3"
         comment.save()
         return redirect(request.path)
-    dico_charte = ((domaine, (prop for prop in Proposition_charte.objects.filter(domaine=domaine))) for domaine in Domaine_charte.objects.all())
+    dico_charte = ((domaine, (prop for prop in Proposition_charte.objects.filter(domaine=domaine).order_by("id"))) for domaine in Domaine_charte.objects.all())
     return render(request, 'charte.html', {"dico_charte":dico_charte, 'form': form, 'commentaires': commentaires})
 
 
